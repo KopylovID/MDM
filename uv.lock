@@ -26,15 +26,31 @@ wheels = [
 ]
 
 [[package]]
+name = "django-sequences"
+version = "3.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "django" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/b4/57/18664e9506198262ac854e677118653c7b69dabeaa77fef11eb6bad15781/django_sequences-3.0.tar.gz", hash = "sha256:e82bfee28d9eaee5b7d3be618eed989c7c5a117601b56142ee2435edb5a45456", size = 18404, upload-time = "2024-01-31T21:07:24.528Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/33/cf/d18a396dec56959a1e6e2f67ea3a0437a134bc4adb7e8a08faae17c50bea/django_sequences-3.0-py3-none-any.whl", hash = "sha256:e2dc2c3615f01e15d51c155ad38df8f56cbe61ec20b82f250b4ea35a277af614", size = 29790, upload-time = "2024-01-31T21:07:22.255Z" },
+]
+
+[[package]]
 name = "mdm"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
     { name = "django" },
+    { name = "django-sequences" },
 ]
 
 [package.metadata]
-requires-dist = [{ name = "django", specifier = ">=6.0.3" }]
+requires-dist = [
+    { name = "django", specifier = ">=6.0.3" },
+    { name = "django-sequences", specifier = ">=3.0" },
+]
 
 [[package]]
 name = "sqlparse"
