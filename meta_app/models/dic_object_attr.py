@@ -1,4 +1,4 @@
-from base import BaseEntity
+from .base import BaseEntity
 from django.db import models
 from .dic_attr_type import DicAttrType
 
@@ -24,6 +24,7 @@ class DicObjectAttr(BaseEntity):
     attr_type_id = models.ForeignKey(
         verbose_name="Тип атрибута",  # TODO: Локализация
         to=DicAttrType,
+        on_delete=models.CASCADE,
         related_name='+', # Отключаем обратное обращение
         related_query_name='+', # Отключаем фильтрацию
     )

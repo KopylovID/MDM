@@ -4,24 +4,30 @@ from meta_app.models.dic_object_attr import DicObjectAttr
 
 from .base import BaseEntity
 
+
 class PrValueMixin:
 
     @property
     def value(self):
-        if hasattr(self, 'value'):
+        if hasattr(self, "value"):
             return self.value
         return None
+
 
 class BaseDicObjectAttrValue(BaseEntity, PrValueMixin):
     """Базовый класс значений атрибутов справочника"""
 
     dictionary_id = models.ForeignKey(
-        verbose_name="Идентификатор справочника", to=DicObject, related_name="attribute_values"  # TODO: Локализация
+        verbose_name="Идентификатор справочника",
+        to=DicObject,
+        on_delete=models.CASCADE,
+        related_name="attribute_values",  # TODO: Локализация
     )
 
     attribute_id = models.ForeignKey(
         verbose_name="Идентификатор атрибута справочника",  # TODO: Локализация
         to=DicObjectAttr,
+        on_delete=models.CASCADE,
         related_name="+",  # Отключаем обратное обращение
         related_query_name="+",  # Отключаем фильтрацию
     )

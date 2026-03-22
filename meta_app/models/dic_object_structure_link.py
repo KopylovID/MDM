@@ -1,6 +1,7 @@
-from base import BaseEntity
+from .base import BaseEntity
 from django.db import models
 from meta_app.models.dic_object import DicObject
+from meta_app.models.dic_structure import DicStructure
 
 
 class DicObjectStructureLink(BaseEntity):
@@ -9,9 +10,23 @@ class DicObjectStructureLink(BaseEntity):
     dictionary_id = models.ForeignKey(
         verbose_name="Идентификатор справочника",  # TODO: Локализация
         to=DicObject,
-        related_name="structure_tree",
-        unique=True,
+        on_delete=models.CASCADE,
+        related_name="dictonary",
+    )
+
+    structure_id = models.ForeignKey(
+        verbose_name="Идентификатор структуры",  # TODO: Локализация
+        to=DicStructure,
+        on_delete=models.CASCADE,
+        related_name="structure",
     )
 
     class Meta:
         db_table = "dic_object_structure_link"
+
+        constraints = [
+            models.UniqueConstraint(
+                fields=['dictionary_id', 'structure_id'],
+                name='UQ_dictionary_structure'
+            )
+        ]

@@ -1,4 +1,4 @@
-from base import BaseEntity
+from .base import BaseEntity
 from django.db import models
 
 class DicAttrType(BaseEntity):

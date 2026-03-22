@@ -1,4 +1,4 @@
-from base import BaseEntity
+from .base import BaseEntity
 from django.db import models
 from meta_app.models.dic_object import DicObject
 
@@ -6,9 +6,10 @@ from meta_app.models.dic_object import DicObject
 class DicObjectRegister(BaseEntity):
     """Реестр зарегистрированных справочников"""
 
-    dictionary_id = models.ForeignKey(
+    dictionary_id = models.OneToOneField(
         verbose_name="Идентификатор справочника",  # TODO: Локализация
         to=DicObject,
+        on_delete=models.CASCADE,
         related_name="register",
         unique=True,
     )
