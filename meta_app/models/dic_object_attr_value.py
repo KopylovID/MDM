@@ -1,7 +1,6 @@
 from django.db import models
-from meta_app.models.dic_object import DicObject
-from meta_app.models.dic_object_attr import DicObjectAttr
-
+from .dic_object import DicObject
+from .dic_object_attr import DicObjectAttr
 from .base import BaseEntity
 
 
@@ -82,3 +81,4 @@ class DicObjectAttrValueJson(BaseDicObjectAttrValue):
 
 
 # TODO: Необходима реализация общего класса DicObjectAttrValue():
+# TODO: Необходима реализация дополнительного класса содержащего значения справочника по умолчанию:

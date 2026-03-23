@@ -2,6 +2,7 @@ from .base import BaseEntity
 from django.db import models
 
 class DicAttrType(BaseEntity):
+    """Тип атрибута"""
 
     type_code = models.CharField(
         verbose_name="Код типа",  # TODO: Локализация
@@ -14,6 +15,7 @@ class DicAttrType(BaseEntity):
     )
     type_description = models.TextField(
         verbose_name="Детальное описание типа",  # TODO: Локализация
+        null=True,
     )
 
     class Meta:

@@ -1,0 +1,22 @@
+from .base import BaseEntity
+from django.db import models
+
+class DicAttrGroup(BaseEntity):
+    """Группа атрибутов"""
+
+    group_code = models.CharField(
+        verbose_name="Код группы",  # TODO: Локализация
+        max_length=255,
+        unique=True,
+    )
+    group_name = models.CharField(
+        verbose_name="Наименование группы",  # TODO: Локализация
+        max_length=255,
+    )
+    group_description = models.TextField(
+        verbose_name="Детальное описание группы",  # TODO: Локализация
+        null=True,
+    )
+
+    class Meta:
+        db_table = 'dic_attr_group'

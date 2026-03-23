@@ -12,6 +12,12 @@ from .dic_object_register import DicObjectRegister
 
 from .dic_attr_type import DicAttrType
 
+from .dic_attr_group import DicAttrGroup
+
 from .dic_structure import DicStructure
 
 from .dic_object_structure_link import DicObjectStructureLink
+
+from .dic_object_column import DicObjectColumn
+
+from .dic_relationship import DicRelationship
