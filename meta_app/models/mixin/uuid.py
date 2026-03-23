@@ -1,7 +1,7 @@
 from django.db import models
 import uuid
 
-class UUIDMixin:
+class UUIDMixin(models.Model):
     """Уникальный Идентификатор записи"""
 
     uuid = models.UUIDField(
@@ -10,3 +10,6 @@ class UUIDMixin:
         default=uuid.uuid4,  # автогенерация UUID
         editable=False,  # нельзя редактировать в админке
     )
+
+    class Meta:
+        abstract = True

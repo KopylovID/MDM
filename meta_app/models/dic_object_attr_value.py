@@ -4,7 +4,7 @@ from .dic_object_attr import DicObjectAttr
 from .base import BaseEntity
 
 
-class PrValueMixin:
+class PrValueMixin(models.Model):
 
     @property
     def value(self):
@@ -12,15 +12,18 @@ class PrValueMixin:
             return self.value
         return None
 
+    class Meta:
+        abstract = True  # Не создаем модель
+
 
 class BaseDicObjectAttrValue(BaseEntity, PrValueMixin):
     """Базовый класс значений атрибутов справочника"""
 
     dictionary_id = models.ForeignKey(
-        verbose_name="Идентификатор справочника",
+        verbose_name="Идентификатор справочника", # TODO: Локализация
         to=DicObject,
         on_delete=models.CASCADE,
-        related_name="attribute_values",  # TODO: Локализация
+        related_name="%(app_label)s_%(class)s_attributes",
     )
 
     attribute_id = models.ForeignKey(
@@ -32,8 +35,7 @@ class BaseDicObjectAttrValue(BaseEntity, PrValueMixin):
     )
 
     class Meta:
-
-        abstract = False  # Не создаем модель
+        abstract = True  # Не создаем модель
 
 
 class DicObjectAttrValueInt(BaseDicObjectAttrValue):

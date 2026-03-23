@@ -12,11 +12,11 @@ from .mixin import (
 
 
 class DicObjectColumn(
-    models.Model,
     CreatedAtMixin,
     CreatedByMixin,
     UpdatedByMixin,
     UpdatedAtMixin,
+    models.Model,
 ):
     """Колонки объекта"""
 

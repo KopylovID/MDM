@@ -10,15 +10,15 @@ from .mixin import (
 
 
 class BaseEntity(
-    models.Model,
     IDMixin,
     CreatedAtMixin,
     CreatedByMixin,
     UpdatedByMixin,
     UpdatedAtMixin,
     UUIDMixin,
+    models.Model,
 ):
     """Базовый класс для создания основых сущностей"""
 
     class Meta:
-        abstract = False  # Не создаем модель
+        abstract = True  # Не создаем модель
