@@ -20,11 +20,11 @@ class DicObjectColumn(
 ):
     """Колонки объекта"""
 
-    id = models.OneToOneField(
+    column = models.OneToOneField(
         verbose_name="Идентификатор колонки",  # TODO: Локализация
         to=DicObjectAttrValueStr,
         on_delete=models.CASCADE,
-        related_name="attribute",
+        related_name="attr",
         primary_key=True
     )
 
@@ -34,7 +34,7 @@ class DicObjectColumn(
         editable=False,  # нельзя редактировать в админке
     )
 
-    dictionary_id = models.ForeignKey(
+    dictionary = models.ForeignKey(
         verbose_name="Идентификатор справочника",  # TODO: Локализация
         to=DicObject,
         on_delete=models.CASCADE,
@@ -51,7 +51,7 @@ class DicObjectColumn(
         null=True,
     )
 
-    column_type_id = models.ForeignKey(
+    column_type = models.ForeignKey(
         verbose_name="Тип колонки",  # TODO: Локализация
         to=DicAttrType,
         on_delete=models.CASCADE,
@@ -75,9 +75,9 @@ class DicObjectColumn(
     )
 
     def save(self, id, uuid, *args, **kwargs):
-        self.id = id
+        self.column = id
         self.uuid = uuid
         super().save(*args, **kwargs)
 
     class Meta:
-        db_table = "dic_object_column"
+        db_table = "meta\".\"dic_object_column"

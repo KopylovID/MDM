@@ -41,4 +41,4 @@ class DicObject(BaseEntity):
     )
 
     class Meta:
-        db_table = "dic_object"
+        db_table = "meta\".\"dic_object"

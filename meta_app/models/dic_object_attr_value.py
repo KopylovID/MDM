@@ -19,19 +19,21 @@ class PrValueMixin(models.Model):
 class BaseDicObjectAttrValue(BaseEntity, PrValueMixin):
     """Базовый класс значений атрибутов справочника"""
 
-    dictionary_id = models.ForeignKey(
+    dictionary = models.ForeignKey(
         verbose_name="Идентификатор справочника", # TODO: Локализация
         to=DicObject,
         on_delete=models.CASCADE,
         related_name="%(app_label)s_%(class)s_attributes",
+        db_index=False,
     )
 
-    attribute_id = models.ForeignKey(
+    attribute = models.ForeignKey(
         verbose_name="Идентификатор атрибута справочника",  # TODO: Локализация
         to=DicObjectAttr,
         on_delete=models.CASCADE,
         related_name="+",  # Отключаем обратное обращение
         related_query_name="+",  # Отключаем фильтрацию
+        db_index = False,
     )
 
     class Meta:
@@ -46,18 +48,21 @@ class DicObjectAttrValueInt(BaseDicObjectAttrValue):
     )
 
     class Meta:
-        db_table = "dic_object_attr_value_int"
+        db_table = "meta\".\"dic_object_attr_value_int"
 
 
-class DicObjectAttrValueNumeric(BaseDicObjectAttrValue):
+class DicObjectAttrValueDecimal(BaseDicObjectAttrValue):
     """Класс целых значений атрибутов справочника"""
 
-    value = models.IntegerField(
+    value = models.DecimalField(
         verbose_name="Значение атрибута",  # TODO: Локализация
+        max_digits=9,
+        decimal_places=4,
+        default=0.00
     )
 
     class Meta:
-        db_table = "dic_object_attr_value_numeric"
+        db_table = "meta\".\"dic_object_attr_value_decimal"
 
 
 class DicObjectAttrValueStr(BaseDicObjectAttrValue):
@@ -68,18 +73,18 @@ class DicObjectAttrValueStr(BaseDicObjectAttrValue):
     )
 
     class Meta:
-        db_table = "dic_object_attr_value_str"
+        db_table = "meta\".\"dic_object_attr_value_str"
 
 
 class DicObjectAttrValueJson(BaseDicObjectAttrValue):
     """Класс json значений атрибутов справочника"""
 
-    value = models.TextField(
+    value = models.JSONField(
         verbose_name="Значение атрибута",  # TODO: Локализация
     )
 
     class Meta:
-        db_table = "dic_object_attr_value_json"
+        db_table = "meta\".\"dic_object_attr_value_json"
 
 
 # TODO: Необходима реализация общего класса DicObjectAttrValue():

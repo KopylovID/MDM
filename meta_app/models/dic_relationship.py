@@ -6,7 +6,7 @@ from .dic_object_column import DicObjectColumn
 class DicRelationship(BaseEntity):
     """Отношения"""
 
-    foreign_column_id = models.ForeignKey(
+    foreign_column = models.ForeignKey(
         verbose_name="ИД колонки",  # TODO: Локализация
         to=DicObjectColumn,
         on_delete=models.CASCADE,
@@ -14,7 +14,7 @@ class DicRelationship(BaseEntity):
         related_query_name="+",  # Отключаем фильтрацию
     )
 
-    references_column_id = models.ForeignKey(
+    references_column = models.ForeignKey(
         verbose_name="ИД ссылочной колонки",  # TODO: Локализация
         to=DicObjectColumn,
         on_delete=models.CASCADE,
@@ -23,4 +23,4 @@ class DicRelationship(BaseEntity):
     )
 
     class Meta:
-        db_table = "dic_relationship"
+        db_table = "meta\".\"dic_relationship"

@@ -23,7 +23,7 @@ class DicObjectAttr(BaseEntity):
         null=True,
     )
 
-    attr_type_id = models.ForeignKey(
+    attr_type = models.ForeignKey(
         verbose_name="Тип атрибута",  # TODO: Локализация
         to=DicAttrType,
         on_delete=models.CASCADE,
@@ -31,7 +31,7 @@ class DicObjectAttr(BaseEntity):
         related_query_name='+', # Отключаем фильтрацию
     )
 
-    attr_group_id = models.ForeignKey(
+    attr_group = models.ForeignKey(
         verbose_name="Группа атрибута",  # TODO: Локализация
         to=DicAttrGroup,
         on_delete=models.SET_NULL,
@@ -41,4 +41,4 @@ class DicObjectAttr(BaseEntity):
     )
 
     class Meta:
-        db_table = "dic_object_attr"
+        db_table = "meta\".\"dic_object_attr"

@@ -1,6 +1,7 @@
 from .base import BaseEntity
 from django.db import models
 
+
 class DicAttrGroup(BaseEntity):
     """Группа атрибутов"""
 
@@ -19,4 +20,4 @@ class DicAttrGroup(BaseEntity):
     )
 
     class Meta:
-        db_table = 'dic_attr_group'
+        db_table = "meta\".\"dic_attr_group"

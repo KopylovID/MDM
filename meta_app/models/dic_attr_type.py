@@ -19,4 +19,4 @@ class DicAttrType(BaseEntity):
     )
 
     class Meta:
-        db_table = 'dic_attr_type'
+        db_table = "meta\".\"dic_attr_type"

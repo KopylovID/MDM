@@ -6,7 +6,7 @@ from meta_app.models.dic_object import DicObject
 class DicObjectRegister(BaseEntity):
     """Реестр зарегистрированных справочников"""
 
-    dictionary_id = models.OneToOneField(
+    dictionary = models.OneToOneField(
         verbose_name="Идентификатор справочника",  # TODO: Локализация
         to=DicObject,
         on_delete=models.CASCADE,
@@ -15,4 +15,4 @@ class DicObjectRegister(BaseEntity):
     )
 
     class Meta:
-        db_table = "dic_object_register"
+        db_table = "meta\".\"dic_object_register"

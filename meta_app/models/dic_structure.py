@@ -22,7 +22,7 @@ class DicStructure(
 ):
     """Структура дерева папок справочников"""
 
-    structure_parent_id = TreeForeignKey(
+    structure_parent = TreeForeignKey(
         to='self',
         on_delete=models.CASCADE,
         null=True,
@@ -44,4 +44,4 @@ class DicStructure(
     )
 
     class Meta:
-        db_table = "dic_structure"
+        db_table = "meta\".\"dic_structure"

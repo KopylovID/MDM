@@ -7,14 +7,14 @@ from meta_app.models.dic_structure import DicStructure
 class DicObjectStructureLink(BaseEntity):
     """Привязка справочника к дереву"""
 
-    dictionary_id = models.ForeignKey(
+    dictionary = models.ForeignKey(
         verbose_name="Идентификатор справочника",  # TODO: Локализация
         to=DicObject,
         on_delete=models.CASCADE,
         related_name="dictonary",
     )
 
-    structure_id = models.ForeignKey(
+    structure = models.ForeignKey(
         verbose_name="Идентификатор структуры",  # TODO: Локализация
         to=DicStructure,
         on_delete=models.CASCADE,
@@ -22,7 +22,7 @@ class DicObjectStructureLink(BaseEntity):
     )
 
     class Meta:
-        db_table = "dic_object_structure_link"
+        db_table = "meta\".\"dic_object_structure_link"
 
         constraints = [
             models.UniqueConstraint(
