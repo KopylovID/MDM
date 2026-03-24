@@ -10,7 +10,7 @@ from .dic_object_attr_value import (
 
 from .dic_object_register import DicObjectRegister
 
-from .dic_attr_type import DicAttrType
+from .dic_attr_type import DicAttrType, DicAttrTypeDTO
 
 from .dic_attr_group import DicAttrGroup
 

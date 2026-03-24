@@ -1,4 +1,6 @@
 from django.db import models
+from django_dto import DTOMixin
+
 from .mixin import (
     IDMixin,
     CreatedAtMixin,
@@ -17,6 +19,7 @@ class BaseEntity(
     UpdatedAtMixin,
     UUIDMixin,
     models.Model,
+    DTOMixin,
 ):
     """Базовый класс для создания основых сущностей"""
 
