@@ -4,12 +4,25 @@ from .base import BaseEntity
 from .dic_object import DicObject
 from .dic_attr import DicAttr
 from .dic_attr_type import DicAttrType
-
+from .mixin import (
+    IDMixin,
+    CreatedAtMixin,
+    CreatedByMixin,
+    UpdatedByMixin,
+    UpdatedAtMixin,
+)
 
 # TODO: Рефакторинг+. Необходимо разделить хранение каждого типа значения на отдельную таблицу
 
 
-class DicObjectAttrValue(BaseEntity):
+class DicObjectAttrValue(
+    IDMixin,
+    CreatedAtMixin,
+    CreatedByMixin,
+    UpdatedByMixin,
+    UpdatedAtMixin,
+    models.Model,
+):
     """Класс значений атрибутов справочника"""
 
     dictionary = models.ForeignKey(

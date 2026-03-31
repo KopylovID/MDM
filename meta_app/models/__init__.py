@@ -7,3 +7,4 @@ from .dic_attr_type import DicAttrType, DicAttrTypeDTO
 from .dic_attr_group import DicAttrGroup
 from .dic_structure import DicStructure
 from .dic_object_structure_link import DicObjectStructureLink
+from .dic_object_attr_value_relation import DicObjectAttrValueRelation

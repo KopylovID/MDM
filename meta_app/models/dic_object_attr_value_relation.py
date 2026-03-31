@@ -2,9 +2,23 @@ from .base import BaseEntity
 from django.db import models
 from .dic_attr import DicAttr
 from .dic_object_attr_value import DicObjectAttrValue
+from .mixin import (
+    IDMixin,
+    CreatedAtMixin,
+    CreatedByMixin,
+    UpdatedByMixin,
+    UpdatedAtMixin,
+)
 
 
-class DicObjectAttrValueRelation(BaseEntity):
+class DicObjectAttrValueRelation(
+    IDMixin,
+    CreatedAtMixin,
+    CreatedByMixin,
+    UpdatedByMixin,
+    UpdatedAtMixin,
+    models.Model,
+):
     """Связанные параметры значений атрибутов"""
 
     object_attr_value = models.ForeignKey(
@@ -34,4 +48,4 @@ class DicObjectAttrValueRelation(BaseEntity):
     )
 
     class Meta:
-        db_table = '"meta"."dic_attr_group"'
+        db_table = '"meta"."dic_object_attr_value_ralation"'
