@@ -37,8 +37,8 @@ class DicObject(BaseEntity):
             ("VIEW", "Представление"),  # TODO: Локализация
             ("TABLE", "Таблица"),  # TODO: Локализация
         ],
-        default="TABLE"
+        default="TABLE",
     )
 
     class Meta:
-        db_table = "meta\".\"dic_object"
+        db_table = '"meta"."dic_object"'

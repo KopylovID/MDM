@@ -1,44 +1,18 @@
 from django.db import models
 from .dic_object import DicObject
-from .dic_object_attr import DicObjectAttr
+from .base import BaseEntity
 from .dic_attr_type import DicAttrType
-from .dic_object_attr_value import DicObjectAttrValueStr
-from .mixin import (
-    CreatedAtMixin,
-    CreatedByMixin,
-    UpdatedByMixin,
-    UpdatedAtMixin
-)
 
 
-class DicObjectColumn(
-    CreatedAtMixin,
-    CreatedByMixin,
-    UpdatedByMixin,
-    UpdatedAtMixin,
-    models.Model,
-):
+class DicObjectColumn(BaseEntity):
     """Колонки объекта"""
-
-    column = models.OneToOneField(
-        verbose_name="Идентификатор колонки",  # TODO: Локализация
-        to=DicObjectAttrValueStr,
-        on_delete=models.CASCADE,
-        related_name="attr",
-        primary_key=True
-    )
-
-    uuid = models.UUIDField(
-        verbose_name="Уникальный идентификатор записи",  # TODO: Локализация
-        unique=True,
-        editable=False,  # нельзя редактировать в админке
-    )
 
     dictionary = models.ForeignKey(
         verbose_name="Идентификатор справочника",  # TODO: Локализация
         to=DicObject,
         on_delete=models.CASCADE,
         related_name="column",
+        db_index=False,
     )
 
     column_name = models.CharField(
@@ -57,6 +31,7 @@ class DicObjectColumn(
         on_delete=models.CASCADE,
         related_name="+",  # Отключаем обратное обращение
         related_query_name="+",  # Отключаем фильтрацию
+        db_index=False,
     )
 
     is_null = models.BooleanField(
@@ -65,8 +40,8 @@ class DicObjectColumn(
     )
 
     ordinal_position = models.FloatField(
-        verbose_name="Порядок следования", # TODO: Локализация
-        default=0.0,
+        verbose_name="Порядок следования",  # TODO: Локализация
+        default=0.00,
     )
 
     is_pk = models.BooleanField(
@@ -74,10 +49,5 @@ class DicObjectColumn(
         default=False,
     )
 
-    def save(self, id, uuid, *args, **kwargs):
-        self.column = id
-        self.uuid = uuid
-        super().save(*args, **kwargs)
-
     class Meta:
-        db_table = "meta\".\"dic_object_column"
+        db_table = '"meta"."dic_object_column"'

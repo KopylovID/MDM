@@ -1,5 +1,6 @@
 from .base import BaseEntity
 from django.db import models
+from dataclasses import dataclass
 
 
 class DicAttrGroup(BaseEntity):
@@ -20,4 +21,11 @@ class DicAttrGroup(BaseEntity):
     )
 
     class Meta:
-        db_table = "meta\".\"dic_attr_group"
+        db_table = '"meta"."dic_attr_group"'
+
+
+@dataclass
+class DicAttrGroupDTO:
+    group_code: str
+    group_name: str
+    group_description: str

@@ -12,6 +12,7 @@ class DicObjectStructureLink(BaseEntity):
         to=DicObject,
         on_delete=models.CASCADE,
         related_name="dictonary",
+        db_index=False,
     )
 
     structure = models.ForeignKey(
@@ -19,14 +20,12 @@ class DicObjectStructureLink(BaseEntity):
         to=DicStructure,
         on_delete=models.CASCADE,
         related_name="structure",
+        db_index=False,
     )
 
     class Meta:
-        db_table = "meta\".\"dic_object_structure_link"
+        db_table = '"meta"."dic_object_structure_link"'
 
         constraints = [
-            models.UniqueConstraint(
-                fields=['dictionary_id', 'structure_id'],
-                name='UQ_dictionary_structure'
-            )
+            models.UniqueConstraint(fields=["dictionary_id", "structure_id"], name="UQ_dictionary_structure")
         ]

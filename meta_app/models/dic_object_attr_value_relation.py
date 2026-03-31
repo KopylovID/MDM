@@ -1,20 +1,15 @@
-from django.db import models
-
 from .base import BaseEntity
-from .dic_object import DicObject
+from django.db import models
 from .dic_attr import DicAttr
-from .dic_attr_type import DicAttrType
+from .dic_object_attr_value import DicObjectAttrValue
 
 
-# TODO: Рефакторинг+. Необходимо разделить хранение каждого типа значения на отдельную таблицу
+class DicObjectAttrValueRelation(BaseEntity):
+    """Связанные параметры значений атрибутов"""
 
-
-class DicObjectAttrValue(BaseEntity):
-    """Класс значений атрибутов справочника"""
-
-    dictionary = models.ForeignKey(
-        verbose_name="Идентификатор справочника",  # TODO: Локализация
-        to=DicObject,
+    object_attr_value = models.ForeignKey(
+        verbose_name="ИД на значение атрибута объекта",  # TODO: Локализация
+        to=DicObjectAttrValue,
         on_delete=models.CASCADE,
         related_name="+",  # Отключаем обратное обращение
         related_query_name="+",  # Отключаем фильтрацию
@@ -29,16 +24,6 @@ class DicObjectAttrValue(BaseEntity):
         related_query_name="+",  # Отключаем фильтрацию
         db_index=False,
     )
-
-    attr_type = models.ForeignKey(
-        verbose_name="Тип атрибута",  # TODO: Локализация
-        to=DicAttrType,
-        on_delete=models.CASCADE,
-        related_name='+',  # Отключаем обратное обращение
-        related_query_name='+',  # Отключаем фильтрацию
-        db_index=False,
-    )
-
     value = models.TextField(
         verbose_name="Значение атрибута",  # TODO: Локализация
     )
@@ -49,4 +34,4 @@ class DicObjectAttrValue(BaseEntity):
     )
 
     class Meta:
-        db_table = '"meta"."dic_object_attr_value"'
+        db_table = '"meta"."dic_attr_group"'

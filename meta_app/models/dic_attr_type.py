@@ -2,6 +2,7 @@ from .base import BaseEntity
 from django.db import models
 from dataclasses import dataclass
 
+
 class DicAttrType(BaseEntity):
     """Тип атрибута"""
 
@@ -20,7 +21,8 @@ class DicAttrType(BaseEntity):
     )
 
     class Meta:
-        db_table = "meta\".\"dic_attr_type"
+        db_table = '"meta"."dic_attr_type"'
+
 
 @dataclass
 class DicAttrTypeDTO:
