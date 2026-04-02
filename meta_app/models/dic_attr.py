@@ -1,16 +1,24 @@
-from .base import BaseEntity
+from .base import BaseEntity, BaseDTO
 from django.db import models
 from .dic_attr_type import DicAttrType
 from .dic_attr_group import DicAttrGroup
+from dataclasses import dataclass, asdict
+import json
+from typing import Dict
 
 
 class DicAttr(BaseEntity):
     """Атрибуты объектов"""
 
-    attr_name = models.CharField(verbose_name="Наименование атрибута", max_length=255)  # TODO: Локализация
-
     attr_code = models.CharField(
-        verbose_name="Код атрибута", max_length=255, unique=True, null=True  # TODO: Локализация
+        verbose_name="Код атрибута", # TODO: Локализация
+        max_length=255,
+        unique=True,
+    )
+
+    attr_name = models.CharField(
+        verbose_name="Наименование атрибута",  # TODO: Локализация
+        max_length=255,
     )
 
     attr_description = models.TextField(
@@ -44,3 +52,16 @@ class DicAttr(BaseEntity):
 
     class Meta:
         db_table = '"meta"."dic_attr"'
+
+
+@dataclass
+class DicAttrDTO(BaseDTO):
+    attr_code: str
+    attr_name: str
+    attr_description: str
+    __attr_type__: str
+    __attr_group__: str
+    attr_params: json = None
+
+    attr_type: DicAttrType = None
+    attr_group: DicAttrGroup = None

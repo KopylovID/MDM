@@ -40,6 +40,7 @@ class DicObjectAttrValueRelation(
     )
     value = models.TextField(
         verbose_name="Значение атрибута",  # TODO: Локализация
+        null=True,
     )
 
     value_params = models.JSONField(

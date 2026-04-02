@@ -1,6 +1,7 @@
-from .base import BaseEntity
+from .base import BaseEntity, BaseDTO
 from django.db import models
 from dataclasses import dataclass
+import json
 
 
 class DicAttrType(BaseEntity):
@@ -20,12 +21,17 @@ class DicAttrType(BaseEntity):
         null=True,
     )
 
+    type_params = models.JSONField(
+        verbose_name="Параметры типа",  # TODO: Локализация
+        null=True,
+    )
+
     class Meta:
         db_table = '"meta"."dic_attr_type"'
 
-
 @dataclass
-class DicAttrTypeDTO:
+class DicAttrTypeDTO(BaseDTO):
     type_code: str
     type_name: str
     type_description: str
+    type_params: json = None
