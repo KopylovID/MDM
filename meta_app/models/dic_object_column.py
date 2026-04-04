@@ -1,6 +1,6 @@
 from django.db import models
 from .dic_object import DicObject
-from .base import BaseEntity
+from core.models.base import BaseEntity
 from .dic_attr_type import DicAttrType
 
 
@@ -50,4 +50,4 @@ class DicObjectColumn(BaseEntity):
     )
 
     class Meta:
-        db_table = '"meta"."dic_object_column"'
+        db_table = '"meta_app"."dic_object_column"'

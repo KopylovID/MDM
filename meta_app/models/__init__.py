@@ -1,4 +1,3 @@
-from .base import BaseEntity
 from .dic_object import DicObject
 from .dic_object_attr_value import DicObjectAttrValue
 from .dic_object_column import DicObjectColumn

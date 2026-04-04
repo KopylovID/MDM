@@ -1,10 +1,9 @@
 from django.db import models
 
-from .base import BaseEntity
 from .dic_object import DicObject
 from .dic_attr import DicAttr
 from .dic_attr_type import DicAttrType
-from .mixin import (
+from core.mixin import (
     IDMixin,
     CreatedAtMixin,
     CreatedByMixin,
@@ -62,4 +61,4 @@ class DicObjectAttrValue(
     )
 
     class Meta:
-        db_table = '"meta"."dic_object_attr_value"'
+        db_table = '"meta_app"."dic_object_attr_value"'

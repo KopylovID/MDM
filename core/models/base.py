@@ -4,7 +4,7 @@ from dataclasses import dataclass, asdict
 import operator
 from typing import Literal, Dict
 
-from .mixin import IDMixin, CreatedAtMixin, CreatedByMixin, UpdatedByMixin, UpdatedAtMixin, UUIDMixin
+from core.mixin import IDMixin, CreatedAtMixin, CreatedByMixin, UpdatedByMixin, UpdatedAtMixin, UUIDMixin
 
 
 class BaseEntity(

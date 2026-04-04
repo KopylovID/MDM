@@ -1,8 +1,7 @@
-from .base import BaseEntity
 from django.db import models
 from .dic_attr import DicAttr
 from .dic_object_attr_value import DicObjectAttrValue
-from .mixin import (
+from core.mixin import (
     IDMixin,
     CreatedAtMixin,
     CreatedByMixin,
@@ -49,4 +48,4 @@ class DicObjectAttrValueRelation(
     )
 
     class Meta:
-        db_table = '"meta"."dic_object_attr_value_ralation"'
+        db_table = '"meta_app"."dic_object_attr_value_ralation"'

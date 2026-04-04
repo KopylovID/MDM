@@ -1,4 +1,4 @@
-from .base import BaseEntity, BaseDTO
+from core.models.base import BaseEntity, BaseDTO
 from django.db import models
 from dataclasses import dataclass
 import json
@@ -27,7 +27,7 @@ class DicAttrType(BaseEntity):
     )
 
     class Meta:
-        db_table = '"meta"."dic_attr_type"'
+        db_table = '"meta_app"."dic_attr_type"'
 
 @dataclass
 class DicAttrTypeDTO(BaseDTO):

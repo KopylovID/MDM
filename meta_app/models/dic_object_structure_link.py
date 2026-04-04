@@ -1,4 +1,4 @@
-from .base import BaseEntity
+from core.models.base import BaseEntity
 from django.db import models
 from meta_app.models.dic_object import DicObject
 from meta_app.models.dic_structure import DicStructure
@@ -24,7 +24,7 @@ class DicObjectStructureLink(BaseEntity):
     )
 
     class Meta:
-        db_table = '"meta"."dic_object_structure_link"'
+        db_table = '"meta_app"."dic_object_structure_link"'
 
         constraints = [
             models.UniqueConstraint(fields=["dictionary_id", "structure_id"], name="UQ_dictionary_structure")

@@ -7,13 +7,13 @@ from meta_app.models import (
     DicAttr,
     DicAttrDTO,
 )
-from dataclasses import asdict
 from typing import Dict
 
 
 class Command(BaseCommand):
     """Команда наполнения моделей основными даными"""
 
+    name = 'meta_app_init'
     help = "Генерация основных данных"
 
     def handle(self, *args, **options):

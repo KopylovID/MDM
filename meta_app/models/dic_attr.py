@@ -1,10 +1,9 @@
-from .base import BaseEntity, BaseDTO
+from core.models.base import BaseEntity, BaseDTO
 from django.db import models
 from .dic_attr_type import DicAttrType
 from .dic_attr_group import DicAttrGroup
-from dataclasses import dataclass, asdict
+from dataclasses import dataclass
 import json
-from typing import Dict
 
 
 class DicAttr(BaseEntity):
@@ -51,7 +50,7 @@ class DicAttr(BaseEntity):
     )
 
     class Meta:
-        db_table = '"meta"."dic_attr"'
+        db_table = '"meta_app"."dic_attr"'
 
 
 @dataclass

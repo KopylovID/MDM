@@ -8,5 +8,5 @@ class Migration(migrations.Migration):
     dependencies = []
 
     operations = [
-        migrations.RunSQL(sql="CREATE SCHEMA IF NOT EXISTS meta;", reverse_sql="DROP SCHEMA meta CASCADE;"),
+        migrations.RunSQL(sql="CREATE SCHEMA IF NOT EXISTS user_app;", reverse_sql="DROP SCHEMA user_app CASCADE;"),
     ]

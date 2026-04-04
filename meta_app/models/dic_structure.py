@@ -1,7 +1,7 @@
 from django.db import models
 from mptt.models import MPTTModel, TreeForeignKey
 
-from .mixin import IDMixin, CreatedAtMixin, CreatedByMixin, UpdatedByMixin, UpdatedAtMixin, UUIDMixin
+from core.mixin import IDMixin, CreatedAtMixin, CreatedByMixin, UpdatedByMixin, UpdatedAtMixin, UUIDMixin
 
 
 class DicStructure(MPTTModel, IDMixin, CreatedAtMixin, CreatedByMixin, UpdatedByMixin, UpdatedAtMixin, UUIDMixin):
@@ -29,4 +29,4 @@ class DicStructure(MPTTModel, IDMixin, CreatedAtMixin, CreatedByMixin, UpdatedBy
     )
 
     class Meta:
-        db_table = '"meta"."dic_structure"'
+        db_table = '"meta_app"."dic_structure"'

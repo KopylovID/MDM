@@ -1,4 +1,4 @@
-from .base import BaseEntity
+from core.models.base import BaseEntity
 from django.db import models
 
 
@@ -41,4 +41,4 @@ class DicObject(BaseEntity):
     )
 
     class Meta:
-        db_table = '"meta"."dic_object"'
+        db_table = '"meta_app"."dic_object"'
