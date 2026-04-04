@@ -2,9 +2,23 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from .user_manager import UserManager
 from .dic_department import DicDepartment
+from core.mixin import (
+    CreatedAtMixin,
+    CreatedByMixin,
+    UpdatedByMixin,
+    UpdatedAtMixin,
+    UUIDMixin,
+)
 
 
-class DicUser(AbstractUser):
+class DicUser(
+    AbstractUser,
+    CreatedAtMixin,
+    CreatedByMixin,
+    UpdatedByMixin,
+    UpdatedAtMixin,
+    UUIDMixin,
+):
     """Кастомный пользователь."""
 
     username = None  # Отключаем стандартное поле username в пользу user_name

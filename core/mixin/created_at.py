@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import datetime
 
 class CreatedAtMixin(models.Model):
     """Дата и время создания объекта"""

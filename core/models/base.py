@@ -15,7 +15,6 @@ class BaseEntity(
     UpdatedAtMixin,
     UUIDMixin,
     models.Model,
-    DTOMixin,
 ):
     """Базовый класс для создания основых сущностей"""
 

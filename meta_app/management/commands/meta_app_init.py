@@ -11,13 +11,13 @@ from typing import Dict
 
 
 class Command(BaseCommand):
-    """Команда наполнения моделей основными даными"""
+    """Команда наполнения моделей meta_app основными данными"""
 
     name = 'meta_app_init'
     help = "Генерация основных данных"
 
     def handle(self, *args, **options):
-        self.stdout.write("Запуск генерации основных данных")
+        self.stdout.write("Запуск генерации основных данных - meta_app")
 
         attr_type_dict: Dict[str, DicAttrType] = dict()
         attr_group_dict: Dict[str, DicAttrGroup] = dict()
@@ -62,4 +62,4 @@ class Command(BaseCommand):
             if not created:
                 attr.save()
 
-        self.stdout.write("Окончание генерации основных данных")
+        self.stdout.write("Окончание генерации основных данных - meta_app")

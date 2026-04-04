@@ -1,1 +1,1 @@
-from .base import BaseEntity
+from .base import BaseEntity, BaseDTO
