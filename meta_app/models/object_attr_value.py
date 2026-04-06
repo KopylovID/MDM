@@ -1,8 +1,8 @@
 from django.db import models
 
-from .dic_object import DicObject
-from .dic_attr import DicAttr
-from .dic_attr_type import DicAttrType
+from .object import Object
+from .attr import Attr
+from .attr_type import AttrType
 from core.mixin import (
     IDMixin,
     CreatedAtMixin,
@@ -14,7 +14,7 @@ from core.mixin import (
 # TODO: Рефакторинг+. Необходимо разделить хранение каждого типа значения на отдельную таблицу
 
 
-class DicObjectAttrValue(
+class ObjectAttrValue(
     IDMixin,
     CreatedAtMixin,
     CreatedByMixin,
@@ -26,7 +26,7 @@ class DicObjectAttrValue(
 
     dictionary = models.ForeignKey(
         verbose_name="Идентификатор справочника",  # TODO: Локализация
-        to=DicObject,
+        to=Object,
         on_delete=models.CASCADE,
         related_name="+",  # Отключаем обратное обращение
         related_query_name="+",  # Отключаем фильтрацию
@@ -35,7 +35,7 @@ class DicObjectAttrValue(
 
     attribute = models.ForeignKey(
         verbose_name="Идентификатор атрибута справочника",  # TODO: Локализация
-        to=DicAttr,
+        to=Attr,
         on_delete=models.CASCADE,
         related_name="+",  # Отключаем обратное обращение
         related_query_name="+",  # Отключаем фильтрацию
@@ -44,7 +44,7 @@ class DicObjectAttrValue(
 
     attr_type = models.ForeignKey(
         verbose_name="Тип атрибута",  # TODO: Локализация
-        to=DicAttrType,
+        to=AttrType,
         on_delete=models.CASCADE,
         related_name='+',  # Отключаем обратное обращение
         related_query_name='+',  # Отключаем фильтрацию
@@ -61,4 +61,4 @@ class DicObjectAttrValue(
     )
 
     class Meta:
-        db_table = '"meta_app"."dic_object_attr_value"'
+        db_table = '"meta_app"."object_attr_value"'

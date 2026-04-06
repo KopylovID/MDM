@@ -137,4 +137,4 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-AUTH_USER_MODEL = 'user_app.DicUser'
+AUTH_USER_MODEL = 'user_app.User'

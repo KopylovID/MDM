@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{{ basic.title }}{% endblock %}</title>
+    <title>{% block title %}{{ head.title }}{% endblock %}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         {% block style %}
@@ -15,19 +15,25 @@
         {% include 'meta_app/include/menu.html' %}
         {% block header %}
         {% endblock header %}
-        <hr>
     </header>
 
     <main>
-        {% block main %}
-        {% endblock main %}
+        <div class="container-fluid bg-body-tertiary py-4" data-bs-theme="light">
+            <div class="container">
+            {% block main %}
+            {% endblock main %}
+            </div>
+        </div>
     </main>
 
     <footer>
-        <hr>
-        {% block footer %}
-        {% endblock footer %}
-        <p>&copy; {{ footer.info }}</p>
+        <div class="container-fluid" style="background-color: #e3f2fd;" data-bs-theme="light">
+            <div class="container">
+            {% block footer %}
+            {% endblock footer %}
+            </div>
+            <p>&copy; {{ footer.info }}</p>
+        </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>

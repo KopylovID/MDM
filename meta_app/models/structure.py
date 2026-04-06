@@ -4,7 +4,7 @@ from mptt.models import MPTTModel, TreeForeignKey
 from core.mixin import IDMixin, CreatedAtMixin, CreatedByMixin, UpdatedByMixin, UpdatedAtMixin, UUIDMixin
 
 
-class DicStructure(MPTTModel, IDMixin, CreatedAtMixin, CreatedByMixin, UpdatedByMixin, UpdatedAtMixin, UUIDMixin):
+class Structure(MPTTModel, IDMixin, CreatedAtMixin, CreatedByMixin, UpdatedByMixin, UpdatedAtMixin, UUIDMixin):
     """Структура дерева папок справочников"""
 
     structure_parent = TreeForeignKey(
@@ -29,4 +29,4 @@ class DicStructure(MPTTModel, IDMixin, CreatedAtMixin, CreatedByMixin, UpdatedBy
     )
 
     class Meta:
-        db_table = '"meta_app"."dic_structure"'
+        db_table = '"meta_app"."structure"'

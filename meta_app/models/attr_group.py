@@ -4,7 +4,7 @@ from dataclasses import dataclass
 import json
 
 
-class DicAttrGroup(BaseEntity):
+class AttrGroup(BaseEntity):
     """Группа атрибутов"""
 
     group_code = models.CharField(
@@ -27,11 +27,11 @@ class DicAttrGroup(BaseEntity):
     )
 
     class Meta:
-        db_table = '"meta_app"."dic_attr_group"'
+        db_table = '"meta_app"."attr_group"'
 
 
 @dataclass
-class DicAttrGroupDTO(BaseDTO):
+class AttrGroupDTO(BaseDTO):
     group_code: str
     group_name: str
     group_description: str

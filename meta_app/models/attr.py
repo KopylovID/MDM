@@ -1,12 +1,12 @@
 from core.models.base import BaseEntity, BaseDTO
 from django.db import models
-from .dic_attr_type import DicAttrType
-from .dic_attr_group import DicAttrGroup
+from .attr_type import AttrType
+from .attr_group import AttrGroup
 from dataclasses import dataclass
 import json
 
 
-class DicAttr(BaseEntity):
+class Attr(BaseEntity):
     """Атрибуты объектов"""
 
     attr_code = models.CharField(
@@ -27,7 +27,7 @@ class DicAttr(BaseEntity):
 
     attr_type = models.ForeignKey(
         verbose_name="Тип атрибута",  # TODO: Локализация
-        to=DicAttrType,
+        to=AttrType,
         on_delete=models.CASCADE,
         related_name="+",  # Отключаем обратное обращение
         related_query_name="+",  # Отключаем фильтрацию
@@ -36,7 +36,7 @@ class DicAttr(BaseEntity):
 
     attr_group = models.ForeignKey(
         verbose_name="Группа атрибута",  # TODO: Локализация
-        to=DicAttrGroup,
+        to=AttrGroup,
         on_delete=models.SET_NULL,
         null=True,
         related_name="+",  # Отключаем обратное обращение
@@ -50,11 +50,11 @@ class DicAttr(BaseEntity):
     )
 
     class Meta:
-        db_table = '"meta_app"."dic_attr"'
+        db_table = '"meta_app"."attr"'
 
 
 @dataclass
-class DicAttrDTO(BaseDTO):
+class AttrDTO(BaseDTO):
     attr_code: str
     attr_name: str
     attr_description: str
@@ -62,5 +62,5 @@ class DicAttrDTO(BaseDTO):
     __attr_group__: str
     attr_params: json = None
 
-    attr_type: DicAttrType = None
-    attr_group: DicAttrGroup = None
+    attr_type: AttrType = None
+    attr_group: AttrGroup = None

@@ -4,7 +4,7 @@ from dataclasses import dataclass
 import json
 
 
-class DicAttrType(BaseEntity):
+class AttrType(BaseEntity):
     """Тип атрибута"""
 
     type_code = models.CharField(
@@ -27,10 +27,10 @@ class DicAttrType(BaseEntity):
     )
 
     class Meta:
-        db_table = '"meta_app"."dic_attr_type"'
+        db_table = '"meta_app"."attr_type"'
 
 @dataclass
-class DicAttrTypeDTO(BaseDTO):
+class AttrTypeDTO(BaseDTO):
     type_code: str
     type_name: str
     type_description: str

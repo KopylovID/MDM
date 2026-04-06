@@ -1,11 +1,11 @@
 from django.core.management.base import BaseCommand
 from meta_app.models import (
-    DicAttrType,
-    DicAttrTypeDTO,
-    DicAttrGroup,
-    DicAttrGroupDTO,
-    DicAttr,
-    DicAttrDTO,
+    AttrType,
+    AttrTypeDTO,
+    AttrGroup,
+    AttrGroupDTO,
+    Attr,
+    AttrDTO,
 )
 from typing import Dict
 
@@ -19,15 +19,15 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         self.stdout.write("Запуск генерации основных данных - meta_app")
 
-        attr_type_dict: Dict[str, DicAttrType] = dict()
-        attr_group_dict: Dict[str, DicAttrGroup] = dict()
+        attr_type_dict: Dict[str, AttrType] = dict()
+        attr_group_dict: Dict[str, AttrGroup] = dict()
 
         self.stdout.write("Генерация - DicAttrType")
         from .data import DicAttrTypeData
 
         for elem in DicAttrTypeData:
-            attr_type_raw = DicAttrTypeDTO(*(DicAttrType, *elem))
-            attr_type, created = DicAttrType.objects.update_or_create(
+            attr_type_raw = AttrTypeDTO(*(AttrType, *elem))
+            attr_type, created = AttrType.objects.update_or_create(
                 **attr_type_raw.get_fields('unique'),
                 defaults=attr_type_raw.get_fields('non-unique')
             )
@@ -39,8 +39,8 @@ class Command(BaseCommand):
         from .data import DicAttrGroupData
 
         for elem in DicAttrGroupData:
-            attr_group_raw = DicAttrGroupDTO(*(DicAttrGroup, *elem))
-            attr_group, created = DicAttrGroup.objects.update_or_create(
+            attr_group_raw = AttrGroupDTO(*(AttrGroup, *elem))
+            attr_group, created = AttrGroup.objects.update_or_create(
                 **attr_group_raw.get_fields('unique'),
                 defaults=attr_group_raw.get_fields('non-unique')
             )
@@ -52,10 +52,10 @@ class Command(BaseCommand):
         from .data import DicAttrData
 
         for elem in DicAttrData:
-            attr_raw = DicAttrDTO(*(DicAttr, *elem))
+            attr_raw = AttrDTO(*(Attr, *elem))
             attr_raw.attr_type = attr_type_dict.get(attr_raw.__attr_type__)
             attr_raw.attr_group = attr_group_dict.get(attr_raw.__attr_group__)
-            attr, created = DicAttr.objects.update_or_create(
+            attr, created = Attr.objects.update_or_create(
                 **attr_raw.get_fields('unique'),
                 defaults=attr_raw.get_fields('non-unique')
             )

@@ -10,7 +10,7 @@ from core.mixin import (
 )
 
 
-class DicUser(
+class User(
     AbstractUser,
     CreatedAtMixin,
     CreatedByMixin,
@@ -66,4 +66,6 @@ class DicUser(
     objects = UserManager()
 
     class Meta:
-        db_table = '"user_app"."dic_user"'
+        verbose_name = 'Пользователь' # TODO: Локализация
+        verbose_name_plural = 'Пользователи' # TODO: Локализация
+        db_table = '"user_app"."user"'

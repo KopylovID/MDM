@@ -1,2 +1,2 @@
-from .dic_user import DicUser
+from .user import User
 from .user_manager import UserManager

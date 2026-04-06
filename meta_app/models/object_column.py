@@ -1,15 +1,15 @@
 from django.db import models
-from .dic_object import DicObject
+from .object import Object
 from core.models.base import BaseEntity
-from .dic_attr_type import DicAttrType
+from .attr_type import AttrType
 
 
-class DicObjectColumn(BaseEntity):
+class ObjectColumn(BaseEntity):
     """Колонки объекта"""
 
     dictionary = models.ForeignKey(
         verbose_name="Идентификатор справочника",  # TODO: Локализация
-        to=DicObject,
+        to=Object,
         on_delete=models.CASCADE,
         related_name="column",
         db_index=False,
@@ -27,7 +27,7 @@ class DicObjectColumn(BaseEntity):
 
     column_type = models.ForeignKey(
         verbose_name="Тип колонки",  # TODO: Локализация
-        to=DicAttrType,
+        to=AttrType,
         on_delete=models.CASCADE,
         related_name="+",  # Отключаем обратное обращение
         related_query_name="+",  # Отключаем фильтрацию
@@ -50,4 +50,4 @@ class DicObjectColumn(BaseEntity):
     )
 
     class Meta:
-        db_table = '"meta_app"."dic_object_column"'
+        db_table = '"meta_app"."object_column"'

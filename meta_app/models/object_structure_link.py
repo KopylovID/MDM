@@ -1,15 +1,15 @@
 from core.models.base import BaseEntity
 from django.db import models
-from meta_app.models.dic_object import DicObject
-from meta_app.models.dic_structure import DicStructure
+from meta_app.models.object import Object
+from meta_app.models.structure import Structure
 
 
-class DicObjectStructureLink(BaseEntity):
+class ObjectStructureLink(BaseEntity):
     """Привязка справочника к дереву"""
 
     dictionary = models.ForeignKey(
         verbose_name="Идентификатор справочника",  # TODO: Локализация
-        to=DicObject,
+        to=Object,
         on_delete=models.CASCADE,
         related_name="dictonary",
         db_index=False,
@@ -17,14 +17,14 @@ class DicObjectStructureLink(BaseEntity):
 
     structure = models.ForeignKey(
         verbose_name="Идентификатор структуры",  # TODO: Локализация
-        to=DicStructure,
+        to=Structure,
         on_delete=models.CASCADE,
         related_name="structure",
         db_index=False,
     )
 
     class Meta:
-        db_table = '"meta_app"."dic_object_structure_link"'
+        db_table = '"meta_app"."object_structure_link"'
 
         constraints = [
             models.UniqueConstraint(fields=["dictionary_id", "structure_id"], name="UQ_dictionary_structure")

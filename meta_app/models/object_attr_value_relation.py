@@ -1,6 +1,6 @@
 from django.db import models
-from .dic_attr import DicAttr
-from .dic_object_attr_value import DicObjectAttrValue
+from .attr import Attr
+from .object_attr_value import ObjectAttrValue
 from core.mixin import (
     IDMixin,
     CreatedAtMixin,
@@ -10,7 +10,7 @@ from core.mixin import (
 )
 
 
-class DicObjectAttrValueRelation(
+class ObjectAttrValueRelation(
     IDMixin,
     CreatedAtMixin,
     CreatedByMixin,
@@ -22,7 +22,7 @@ class DicObjectAttrValueRelation(
 
     object_attr_value = models.ForeignKey(
         verbose_name="ИД на значение атрибута объекта",  # TODO: Локализация
-        to=DicObjectAttrValue,
+        to=ObjectAttrValue,
         on_delete=models.CASCADE,
         related_name="+",  # Отключаем обратное обращение
         related_query_name="+",  # Отключаем фильтрацию
@@ -31,7 +31,7 @@ class DicObjectAttrValueRelation(
 
     attribute = models.ForeignKey(
         verbose_name="Идентификатор атрибута справочника",  # TODO: Локализация
-        to=DicAttr,
+        to=Attr,
         on_delete=models.CASCADE,
         related_name="+",  # Отключаем обратное обращение
         related_query_name="+",  # Отключаем фильтрацию
@@ -48,4 +48,4 @@ class DicObjectAttrValueRelation(
     )
 
     class Meta:
-        db_table = '"meta_app"."dic_object_attr_value_ralation"'
+        db_table = '"meta_app"."object_attr_value_ralation"'
