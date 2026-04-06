@@ -1,10 +1,11 @@
 from django.db import models
 from mptt.models import MPTTModel, TreeForeignKey
+from dataclasses import dataclass
+from core.models import BaseEntity, BaseDTO
+import json
 
-from core.mixin import IDMixin, CreatedAtMixin, CreatedByMixin, UpdatedByMixin, UpdatedAtMixin, UUIDMixin
 
-
-class Structure(MPTTModel, IDMixin, CreatedAtMixin, CreatedByMixin, UpdatedByMixin, UpdatedAtMixin, UUIDMixin):
+class Structure(MPTTModel, BaseEntity):
     """Структура дерева папок справочников"""
 
     structure_parent = TreeForeignKey(
@@ -30,3 +31,16 @@ class Structure(MPTTModel, IDMixin, CreatedAtMixin, CreatedByMixin, UpdatedByMix
 
     class Meta:
         db_table = '"meta_app"."structure"'
+
+    class MPTTMeta:
+        parent_attr = 'structure_parent'  # поле родитель
+
+
+@dataclass
+class StructureDTO(BaseDTO):
+    structure_code: str
+    structure_name: str
+    structure_description: str
+    __params__: json = None
+
+    structure_parent: Structure = None

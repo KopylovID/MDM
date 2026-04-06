@@ -1,4 +1,4 @@
-DicAttrTypeData = [
+AttrTypeData = [
     ('NULL', 'Null', 'Неопределенность'),
     ('INT', 'Integer', 'Целочисленный тип'),
     ('TEXT', 'Text', 'Текстовый тип данных'),
