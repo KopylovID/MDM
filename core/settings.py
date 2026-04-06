@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
+
+from django.conf.global_settings import DATABASE_ROUTERS
+
 from core.config import Config
 
 config = Config.load()
@@ -39,8 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'meta_app.apps.MetaAppConfig',
     'user_app.apps.UserAppConfig',
+    'meta_app.apps.MetaAppConfig',
 ]
 
 MIDDLEWARE = [
@@ -82,7 +85,6 @@ WSGI_APPLICATION = 'core.wsgi.application'
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -92,7 +94,7 @@ DATABASES = {
         'HOST': config.db.host,
         'PORT': config.db.port,
         'OPTIONS': {
-            'options': '-c search_path=meta,public'
+            'options': '-c search_path=user_app,meta_app'
         },
     }
 }

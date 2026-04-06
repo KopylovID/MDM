@@ -1,1 +1,0 @@
-from .dic_department_data import DicDepartmentData

@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from .user_manager import UserManager
-from .dic_department import DicDepartment
 from core.mixin import (
     CreatedAtMixin,
     CreatedByMixin,
@@ -56,21 +55,12 @@ class DicUser(
         unique=True,
     )
 
-    department = models.ForeignKey(
-        verbose_name="Идентификатор структуры",  # TODO: Локализация
-        to=DicDepartment,
-        on_delete=models.CASCADE,
-        related_name="department",
-        db_index=False,
-    )
-
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = [
         "staff_code",
         "first_name",
         "last_name",
         "middle_name",
-        "department",
     ]
 
     objects = UserManager()
