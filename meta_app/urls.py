@@ -1,9 +1,10 @@
 from django.urls import path
-from .views import IndexView
+from .views import MAIndexView
 
+app_name = 'ma'
 
 urlpatterns = [
-    path("", IndexView.as_view(), name="index"),
+    path("", MAIndexView.as_view(), name="index"),
     # path('about/', about, name='about'),
     # path('posts/', PostListView.as_view(), name='post_list'),
     # path('posts/add/', PostCreateView.as_view() , name='post_add'),

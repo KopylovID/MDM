@@ -20,7 +20,8 @@ from django.urls import path, include
 from django.views.generic import RedirectView
 
 urlpatterns = [
-    path('', RedirectView.as_view(url='/rdm/'), name='home'),
+    path('', RedirectView.as_view(url='/rdm/')),
     path('admin/', admin.site.urls),
-    path('rdm/', include('meta_app.urls'), name='main'),
+    path('rdm/', include('meta_app.urls', namespace='ma')),
+    path('auth/', include('user_app.urls', namespace='ua')),
 ]
