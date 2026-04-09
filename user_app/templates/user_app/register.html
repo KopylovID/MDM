@@ -1,17 +1,55 @@
 {% extends 'core/base.html' %}
 
+{% block style %}
+<style>
+    .two-columns {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+    }
+
+    form p {
+        margin-bottom: 15px;
+    }
+
+    form label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: normal;
+    }
+
+    form input {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+</style>
+{% endblock %}
+
 {% block title %} Регистрация нового пользователя {% endblock %}
 
 {% block main %}
-    <h1>Регистрация </h1>
-    <form method="post" class="mt-4">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
-    </form>
-    <p class="mt-3">
-        <a href="{% url 'ua:login' %}" class="btn btn-secondary mt-3">Войти</a>
-        <a href="{% url 'ma:index' %}" class="btn btn-secondary mt-3">Главная страница</a>
-    </p>
+
+    {% load widget_tweaks %}
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+            <h4>Регистрация </h4>
+            <form method="post" class="mt-4">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+            </form>
+            <p class="mt-3">
+                <a href="{% url 'ua:login' %}" class="btn btn-secondary mt-3">Войти</a>
+                <a href="{% url 'ma:index' %}" class="btn btn-secondary mt-3">Главная страница</a>
+            </p>
+            </div>
+        </div>
+    </div>
+
 {% endblock main %}
 

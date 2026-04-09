@@ -23,13 +23,7 @@ class User(
     username = None  # Отключаем стандартное поле username в пользу user_name
 
     staff_code = models.CharField(
-        verbose_name="Имя пользователя",  # TODO: Локализация
-        max_length=255,
-        unique=False,
-    )
-
-    user_name = models.CharField(
-        verbose_name="Имя пользователя",  # TODO: Локализация
+        verbose_name="Табельный номер",  # TODO: Локализация
         max_length=255,
         unique=False,
     )
@@ -64,6 +58,23 @@ class User(
     ]
 
     objects = UserManager()
+
+    @property
+    def user_name(self):
+        """Вычисляемое имя пользователя"""
+        name_parts = []
+
+        if self.last_name:
+            name_parts.append(self.last_name)
+        if self.first_name:
+            name_parts.append(self.first_name)
+        if self.middle_name:
+            name_parts.append(self.middle_name)
+
+        return (" ".join(name_parts)).rsplit()
+
+    def get_full_name(self):
+        return self.user_name
 
     class Meta:
         verbose_name = 'Пользователь' # TODO: Локализация

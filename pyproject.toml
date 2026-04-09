@@ -9,6 +9,7 @@ dependencies = [
     "django-dto==0.1.4",
     "django-mptt>=0.18.0",
     "django-sequences>=3.0",
+    "django-widget-tweaks>=1.5.1",
     "psycopg[binary,c]>=3.3.3",
     "pydantic>=2.12.5",
     "pydantic-settings>=2.13.1",
