@@ -17,7 +17,7 @@ class UACreationForm(BaseUserCreationForm):
     staff_code = forms.CharField(
         required=True,
         label="Табельный номер",  # TODO: Локализация
-        widget=forms.EmailInput(
+        widget=forms.TextInput(
             attrs={"class": "form-control", "placeholder": "000000"},  # TODO: Локализация
         ),
     )
@@ -25,21 +25,21 @@ class UACreationForm(BaseUserCreationForm):
     first_name = forms.CharField(
         required=True,
         label="Имя",  # TODO: Локализация
-        widget=forms.EmailInput(
+        widget=forms.TextInput(
             attrs={"class": "form-control", "placeholder": "Иван"},  # TODO: Локализация
         ),
     )
     last_name = forms.CharField(
         required=True,
         label="Фамилия",  # TODO: Локализация
-        widget=forms.EmailInput(
+        widget=forms.TextInput(
             attrs={"class": "form-control", "placeholder": "Иванов"},  # TODO: Локализация
         ),
     )
     middle_name = forms.CharField(
         required=False,
         label="Отчество",  # TODO: Локализация
-        widget=forms.EmailInput(
+        widget=forms.TextInput(
             attrs={"class": "form-control", "placeholder": "Иванович"},  # TODO: Локализация
         ),
     )

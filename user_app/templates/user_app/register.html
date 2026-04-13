@@ -40,7 +40,51 @@
             <h4>Регистрация </h4>
             <form method="post" class="mt-4">
                 {% csrf_token %}
-                {{ form.as_p }}
+                 <div class="row border pt-3">
+                    <!-- Левый столбец -->
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="{{ form.email.id_for_label }}" class="form-label">Email *</label>
+                            {{ form.email|add_class:"form-control" }}
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="{{ form.staff_code.id_for_label }}" class="form-label">Табельный номер *</label>
+                            {{ form.staff_code|add_class:"form-control" }}
+                        </div>
+                    </div>
+
+                    <!-- Правый столбец -->
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="{{ form.first_name.id_for_label }}" class="form-label">Имя *</label>
+                            {{ form.first_name|add_class:"form-control" }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="{{ form.last_name.id_for_label }}" class="form-label">Фамилия *</label>
+                            {{ form.last_name|add_class:"form-control" }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="{{ form.middle_name.id_for_label }}" class="form-label">Отчество</label>
+                            {{ form.middle_name|add_class:"form-control" }}
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="{{ form.password1.id_for_label }}" class="form-label">Пароль *</label>
+                            {{ form.password1|add_class:"form-control" }}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="{{ form.password2.id_for_label }}" class="form-label">Подтверждение пароля *</label>
+                            {{ form.password2|add_class:"form-control" }}
+                        </div>
+                    </div>
+                </div>
                 <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
             </form>
             <p class="mt-3">
