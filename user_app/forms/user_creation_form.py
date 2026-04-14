@@ -80,6 +80,8 @@ class UACreationForm(BaseUserCreationForm):
             "password2"
         )
 
+    # TODO: Дублирование кода
+
     def clean_email(self):
         """Проверка email на уникальность."""
 

@@ -6,6 +6,7 @@ class UpdatedByMixin(models.Model):
 
     updated_by = models.CharField(
         verbose_name="Пользователь обновивший запись",  # TODO: Локализация
+        blank=True,
         null=True
     )
 

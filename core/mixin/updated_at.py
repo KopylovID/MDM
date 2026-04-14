@@ -6,6 +6,7 @@ class UpdatedAtMixin(models.Model):
 
     updated_at = models.DateTimeField(
         verbose_name="Дата и время обновления объекта",  # TODO: Локализация
+        blank=True,
         auto_now=True,
         null=True
     )

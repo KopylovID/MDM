@@ -1,0 +1,21 @@
+<nav class="navbar" style="background-color: #e3f2fd;" data-bs-theme="light">
+    <div class="container-fluid">
+        <ul class="nav nav-underline me-5">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'ma:index' %}">Главная страница</a>
+          </li>
+        </ul>
+        <div class="d-flex align-items-center gap-2">
+            {% if user.is_authenticated %}
+                <a href="{% url 'ua:change' %}" class="me-2">{{ user.user_name }} ( ТН:{{ user.staff_code }} )</a>
+                <form method="post" action="{% url 'ua:logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-outline-secondary">Выйти</button>
+                </form>
+            {% else %}
+                <a href="{% url 'ua:login' %}" class="btn btn-outline-primary">Войти</a>
+                <a href="{% url 'ua:register' %}" class="btn btn-outline-primary">Зарегистрироваться</a>
+            {% endif %}
+        </div>
+    </div>
+</nav>

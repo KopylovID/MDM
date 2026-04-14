@@ -1,17 +1,27 @@
 {% extends 'core/base.html' %}
 
 {% block header %}
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-      <form class="d-flex flex-grow-1" role="search">
-        <input class="form-control me-2 flex-grow-1" type="search" placeholder="Введите название справочника" aria-label="Поиск"/>
-        <button class="btn btn-outline-success" type="submit">Поиск</button>
-      </form>
-  </div>
-</nav>
+{% if user.is_authenticated %}
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+          <form class="d-flex flex-grow-1" role="search">
+            <input class="form-control me-2 flex-grow-1" type="search" placeholder="Введите название справочника" aria-label="Поиск"/>
+            <button class="btn btn-outline-success" type="submit">Поиск</button>
+          </form>
+      </div>
+    </nav>
+{% endif %}
 {% endblock header %}
 
 {% block main %}
+{% if user.is_authenticated %}
+<div class="container-fluid bg-body-tertiary py-1" data-bs-theme="light"></div>
+{% else %}
+<div class="alert alert-danger mt-3 " role="alert">
+Вы не авторизованы! Для продолжения работы необходимо войти в систему!
+</div>
+{% endif %}
+
 {% endblock main %}
 
 {% block footer %}

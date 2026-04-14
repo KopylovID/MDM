@@ -7,7 +7,7 @@ from ..forms import UACreationForm
 class UARegisterView(FormView):
     template_name = "user_app/register.html"
     form_class = UACreationForm
-    success_url = reverse_lazy("login")
+    success_url = reverse_lazy("ua:login")
 
     def form_valid(self, form):
         user = form.save()

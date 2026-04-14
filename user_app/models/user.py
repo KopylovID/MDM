@@ -31,12 +31,10 @@ class User(
     first_name = models.CharField(
         verbose_name="Имя",  # TODO: Локализация
         max_length=150,
-        blank=True,
     )
     last_name = models.CharField(
         verbose_name="Фамилия",  # TODO: Локализация
         max_length=150,
-        blank=True,
     )
     middle_name = models.CharField(
         verbose_name="Отчество",  # TODO: Локализация
@@ -71,7 +69,7 @@ class User(
         if self.middle_name:
             name_parts.append(self.middle_name)
 
-        return (" ".join(name_parts)).rsplit()
+        return " ".join(name_parts)
 
     def get_full_name(self):
         return self.user_name

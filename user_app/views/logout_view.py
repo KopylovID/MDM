@@ -3,4 +3,4 @@ from django.contrib.auth.views import LogoutView
 
 
 class UALogoutView(LogoutView):
-    next_page = reverse_lazy("login")
+    next_page = reverse_lazy("ma:index")

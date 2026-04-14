@@ -1,2 +1,3 @@
 from .user_authentication_form import UAAuthenticationForm
 from .user_creation_form import UACreationForm
+from .user_change_form import UAChangeForm

@@ -12,18 +12,14 @@
 </head>
 <body>
     <header>
-        {% include 'meta_app/include/menu.html' %}
+        {% include './include/menu.html' %}
         {% block header %}
         {% endblock header %}
     </header>
 
     <main>
-        <div class="container-fluid bg-body-tertiary py-4" data-bs-theme="light">
-            <div class="container">
-            {% block main %}
-            {% endblock main %}
-            </div>
-        </div>
+        {% block main %}
+        {% endblock main %}
     </main>
 
     <footer>
