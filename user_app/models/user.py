@@ -3,8 +3,6 @@ from django.contrib.auth.models import AbstractUser
 from .user_manager import UserManager
 from core.mixin import (
     CreatedAtMixin,
-    CreatedByMixin,
-    UpdatedByMixin,
     UpdatedAtMixin,
     UUIDMixin,
 )
@@ -13,8 +11,6 @@ from core.mixin import (
 class User(
     AbstractUser,
     CreatedAtMixin,
-    CreatedByMixin,
-    UpdatedByMixin,
     UpdatedAtMixin,
     UUIDMixin,
 ):
