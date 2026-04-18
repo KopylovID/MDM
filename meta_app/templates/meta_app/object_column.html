@@ -1,0 +1,38 @@
+{% extends 'core/base.html' %}
+
+{% block main %}
+{% if user.is_authenticated %}
+    <div class="container-fluid bg-body-tertiary py-1" data-bs-theme="light">
+        <div class="row">
+            <h4>{{ object_name }}</h4>
+        </div>
+        <div class="row py-2">
+            <div class="col-11">
+                <ul class="list-group">
+                    {% for col in col_list %}
+                    <li class="list-group-item">
+                        <a href="{% url 'ma:object_column_edit' col.id %}">{{ col.ordinal_position }}. {{ col.column_name }}</a>
+                        <a href="{% url 'ma:object_column_edit' col.id %}" class="btn btn-sm btn-warning" role="button"><i class="bi bi-pencil"></i>Описание</a>
+                        <a href="{% url 'ma:object_column_delete' col.id %}" class="btn btn-sm btn-danger" role="button"><i class="bi bi-trash"></i>Удалить</a>
+                    </li>
+                    {% empty %}
+                        <p>Колонки привязанные к справочнику не обнаружены!</p>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col-1">
+                <div class="list-group">
+                    <a href="{% url 'ma:object_column_add' dictionary_id %}" class="list-group-item list-group-item-action list-group-item-success"><i class="bi bi-plus"></i> Добавить</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% else %}
+    <div class="alert alert-danger mt-3 " role="alert">
+        Вы не авторизованы! Для продолжения работы необходимо войти в систему!
+    </div>
+{% endif %}
+{% endblock main %}
+
+{% block footer %}
+{% endblock footer %}

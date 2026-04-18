@@ -1,2 +1,3 @@
 from .index_view import MAIndexView
-from .object_view import MAObjectCreateView
+from .object_view import MAObjectCreateView, MAObjectUpdateView, MAObjectDeleteView
+from .object_column_view import MAObjectColumnListView, MAObjectColumnCreateView, MAObjectColumnUpdateView, MAObjectColumnDeleteView

@@ -42,3 +42,6 @@ class Object(BaseEntity):
 
     class Meta:
         db_table = '"meta_app"."object"'
+
+    def __str__(self):
+        return f'{self.dic_code} - {self.dic_name}'

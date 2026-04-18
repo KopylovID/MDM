@@ -16,9 +16,10 @@
                 <ul class="list-group">
                     {% for dict in dict_list %}
                     <li class="list-group-item">
-                        <a href="{% url 'dict_detail' dict.id %}">{{ dict.dic_code|truncatechars:5 }} - {{ dict.dic_name|truncatechars:30 }} ({{ dict.schema_name }}.{{ dict.object_name }})</a>
-                        <a href="{% url 'dict_edit' dict.id %}" class="btn btn-sm btn-warning" >Редактировать</a>
-                        <a href="{% url 'dict_delete' dict.id %}" class="btn btn-sm btn-danger" >Удалить</a>
+                        <a href="#">{{ dict.dic_code|truncatechars:5 }} - {{ dict.dic_name|truncatechars:30 }} ({{ dict.schema_name }}.{{ dict.object_name }})</a>
+                        <a href="{% url 'ma:object_edit' dict.id %}" class="btn btn-sm btn-warning" role="button"><i class="bi bi-pencil"></i> Описание</a>
+                        <a href="{% url 'ma:object_column' dict.id %}" class="btn btn-sm btn-info"><i class="bi bi-columns"></i> Столбцы</a>
+                        <a href="{% url 'ma:object_delete' dict.id %}" class="btn btn-sm btn-danger" role="button"><i class="bi bi-trash"></i> Удалить</a>
                     </li>
                     {% empty %}
                         <p>Доступные справочники не обнаружены!</p>
@@ -27,7 +28,7 @@
             </div>
             <div class="col-1">
                 <div class="list-group">
-                    <a href="{% url 'ma:object_add' %}" class="list-group-item list-group-item-action list-group-item-success">Добавить +</a>
+                    <a href="{% url 'ma:object_add' %}" class="list-group-item list-group-item-action list-group-item-success"><i class="bi bi-plus"></i> Добавить</a>
                 </div>
             </div>
         </div>

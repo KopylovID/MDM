@@ -29,6 +29,10 @@ class AttrType(BaseEntity):
     class Meta:
         db_table = '"meta_app"."attr_type"'
 
+    def __str__(self):
+        return f"{self.type_name}"
+
+
 @dataclass
 class AttrTypeDTO(BaseDTO):
     type_code: str

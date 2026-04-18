@@ -11,7 +11,7 @@ class ObjectColumn(BaseEntity):
         verbose_name="Идентификатор справочника",  # TODO: Локализация
         to=Object,
         on_delete=models.CASCADE,
-        related_name="column",
+        related_name="columns",
         db_index=False,
     )
 

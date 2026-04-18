@@ -1,16 +1,44 @@
-from django.views.generic import CreateView
+from django.views.generic import (
+    CreateView,
+    UpdateView,
+    DeleteView,
+)
 from ..models import Object
-from ..forms import ObjectAddModelForm
+from ..forms import (
+    MAObjectModifyModelForm,
+    MAObjectDeleteForm,
+)
 from django.urls import reverse_lazy
 from django.contrib import messages
 
 
-class MAObjectCreateView(CreateView):
+class ObjectBase:
     model = Object
+
+
+class MAObjectCreateView(ObjectBase, CreateView):
+    """Представления для добавления объекта."""
+
     template_name = "meta_app/object_add.html"
-    form_class = ObjectAddModelForm
+    form_class = MAObjectModifyModelForm
     success_url = reverse_lazy("ma:index")
 
     def form_valid(self, form):
         messages.success(self.request, "Объект успешно добавлен")
         return super().form_valid(form)
+
+
+class MAObjectUpdateView(ObjectBase, UpdateView):
+    """Представления для редактирвоания объекта."""
+
+    template_name = "meta_app/object_edit.html"
+    form_class = MAObjectModifyModelForm
+    success_url = reverse_lazy("ma:index")
+
+
+class MAObjectDeleteView(ObjectBase, DeleteView):
+    """Представления для удаления объекта."""
+
+    template_name = "meta_app/object_delete.html"
+    form_class = MAObjectDeleteForm
+    success_url = reverse_lazy("ma:index")
