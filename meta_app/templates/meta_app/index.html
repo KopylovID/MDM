@@ -13,18 +13,30 @@
         </div>
         <div class="row py-2">
             <div class="col-11">
-                <ul class="list-group">
-                    {% for dict in dict_list %}
-                    <li class="list-group-item">
-                        <a href="#">{{ dict.dic_code|truncatechars:5 }} - {{ dict.dic_name|truncatechars:30 }} ({{ dict.schema_name }}.{{ dict.object_name }})</a>
+                <table class="table">
+                <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Наименование</th>
+                  <th scope="col">Действия</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for dict in dict_list %}
+                <tr>
+                    <th scope="row">{{ dict.dic_code }}</th>
+                    <td><a href="#">{{ dict.dic_code|truncatechars:5 }} - {{ dict.dic_name|truncatechars:30 }} ({{ dict.schema_name }}.{{ dict.object_name }})</td>
+                    <td>
                         <a href="{% url 'ma:object_edit' dict.id %}" class="btn btn-sm btn-warning" role="button"><i class="bi bi-pencil"></i> Описание</a>
                         <a href="{% url 'ma:object_column' dict.id %}" class="btn btn-sm btn-info"><i class="bi bi-columns"></i> Столбцы</a>
                         <a href="{% url 'ma:object_delete' dict.id %}" class="btn btn-sm btn-danger" role="button"><i class="bi bi-trash"></i> Удалить</a>
-                    </li>
-                    {% empty %}
-                        <p>Доступные справочники не обнаружены!</p>
-                    {% endfor %}
-                </ul>
+                    </td>
+                </tr>
+                {% empty %}
+                    <p style="color: red;">Доступные справочники не обнаружены!</p>
+                {% endfor %}
+                </tbody>
+                </table>
             </div>
             <div class="col-1">
                 <div class="list-group">

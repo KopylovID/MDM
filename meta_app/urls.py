@@ -25,6 +25,6 @@ urlpatterns = [
     # Column
     path("object_column/<int:dictionary_id>/", MAObjectColumnListView.as_view(), name="object_column"),
     path("object_column/<int:dictionary_id>/add/", MAObjectColumnCreateView.as_view(), name="object_column_add"),
-    path("object_column/edit/<int:pk>/", MAObjectColumnUpdateView.as_view(), name="object_column_edit"),
-    path("object_column/delete/<int:pk>", MAObjectColumnDeleteView.as_view(), name="object_column_delete"),
+    path("object_column/<int:dictionary_id>/edit/<int:pk>/", MAObjectColumnUpdateView.as_view(), name="object_column_edit"),
+    path("object_column/<int:dictionary_id>/delete/<int:pk>", MAObjectColumnDeleteView.as_view(), name="object_column_delete"),
 ]
