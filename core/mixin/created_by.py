@@ -17,8 +17,3 @@ class CreatedByMixin(models.Model):
 
     class Meta:
         abstract = True
-
-    def save(self, *args, **kwargs):
-        if hasattr(self, "_current_user"):
-            self.created_by = self._current_user
-        super().save(*args, **kwargs)

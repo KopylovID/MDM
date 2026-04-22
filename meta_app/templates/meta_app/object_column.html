@@ -3,11 +3,18 @@
 {% block main %}
 {% if user.is_authenticated %}
     <div class="container-fluid bg-body-tertiary py-1" data-bs-theme="light">
-        <div class="row">
+        <div class="row text-center">
             <h4><a href="{% url 'ma:index' %}">{{ object_name }}</a></h4>
         </div>
+        <div class="row">
+            <div class="col-1">
+                <div class="list-group">
+                    <a href="{% url 'ma:object_column_add' dictionary_id=dictionary_id %}" class="list-group-item list-group-item-action list-group-item-success"><i class="bi bi-plus"></i> Добавить</a>
+                </div>
+            </div>
+        </div>
         <div class="row py-2">
-            <div class="col-11">
+            <div class="col">
                     <table class="table">
                     <thead>
                     <tr>
@@ -37,11 +44,6 @@
                     {% endfor %}
                     </tbody>
                     </table>
-            </div>
-            <div class="col-1">
-                <div class="list-group">
-                    <a href="{% url 'ma:object_column_add' dictionary_id=dictionary_id %}" class="list-group-item list-group-item-action list-group-item-success"><i class="bi bi-plus"></i> Добавить</a>
-                </div>
             </div>
         </div>
     </div>

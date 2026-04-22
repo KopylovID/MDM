@@ -10,6 +10,7 @@ from ..forms import (
     MAObjectColumnDeleteForm,
 )
 from django.urls import reverse_lazy
+from .mixin import SaveCreatedByMixin, SaveUpdatedByMixin
 
 
 class ObjectColumnBase:
@@ -51,7 +52,7 @@ class MAObjectColumnListView(ObjectColumnBase, ListView):
         return queryset.order_by("ordinal_position")
 
 
-class MAObjectColumnCreateView(ObjectColumnBase, DictionaryIdFormMixin, CreateView):
+class MAObjectColumnCreateView(ObjectColumnBase, DictionaryIdFormMixin, SaveCreatedByMixin, CreateView):
     """Представления для добавления колонки объекта."""
 
     template_name = "meta_app/object_column_add.html"
@@ -61,7 +62,7 @@ class MAObjectColumnCreateView(ObjectColumnBase, DictionaryIdFormMixin, CreateVi
         return reverse_lazy("ma:object_column", kwargs={"dictionary_id": self.kwargs.get("dictionary_id")})
 
 
-class MAObjectColumnUpdateView(ObjectColumnBase, DictionaryIdFormMixin, UpdateView):
+class MAObjectColumnUpdateView(ObjectColumnBase, DictionaryIdFormMixin, SaveUpdatedByMixin, UpdateView):
     """Представления для редактирования колонки объекта."""
 
     template_name = "meta_app/object_column_edit.html"

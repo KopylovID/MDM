@@ -17,8 +17,3 @@ class UpdatedByMixin(models.Model):
 
     class Meta:
         abstract = True
-
-    def save(self, *args, **kwargs):
-        if hasattr(self, "_current_user"):
-            self.updated_by = self._current_user
-        super().save(*args, **kwargs)

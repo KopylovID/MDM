@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 from pathlib import Path
 
 from django.conf.global_settings import DATABASE_ROUTERS
+from django.urls import reverse_lazy
 
 from core.config import Config
 
@@ -141,3 +142,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 AUTH_USER_MODEL = 'user_app.User'
+
+LOGIN_REDIRECT_URL = '/'
+
+LOGIN_URL = reverse_lazy('ua:login')

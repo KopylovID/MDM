@@ -11,13 +11,15 @@
                 </form>
             </div>
         </div>
-        <div class="row py-2">
-            <div class="col-1">
-                <div class="list-group">
-                    <a href="{% url 'ma:object_add' %}" class="list-group-item list-group-item-action list-group-item-success"><i class="bi bi-plus"></i> Добавить</a>
+        {% if not is_reg %}
+            <div class="row py-2">
+                <div class="col-1">
+                    <div class="list-group">
+                        <a href="{% url 'ma:object_add' %}" class="list-group-item list-group-item-action list-group-item-success"><i class="bi bi-plus"></i> Добавить</a>
+                    </div>
                 </div>
             </div>
-        </div>
+        {% endif %}
         <div class="row py-2">
             <div class="col">
                 <table class="table">
@@ -25,7 +27,6 @@
                 <tr>
                   <th scope="col">#</th>
                   <th scope="col">Наименование</th>
-                  <th scope="col">Зарегистрирован</th>
                   <th scope="col">Действия</th>
                 </tr>
                 </thead>
@@ -34,19 +35,35 @@
                 <tr>
                     <th scope="row">{{ dict.dic_code }}</th>
                     <td><a href="#">{{ dict.dic_code|truncatechars:5 }} - {{ dict.dic_name|truncatechars:30 }} ({{ dict.schema_name }}.{{ dict.object_name }})</a></td>
-                    {% for registration in dict.registrations.all %}
-                    <td scope="row">{% if registration.is_approve == True %}<i class="bi bi-circle-fill text-success"></i>{% endif %}</td>
-                    {% empty %}
-                    <td scope="row"></td>
-                    {% endfor %}
                     <td>
                         <a href="{% url 'ma:object_edit' dict.id %}" class="btn btn-sm btn-warning" role="button"><i class="bi bi-pencil"></i> Описание</a>
                         <a href="{% url 'ma:object_column' dict.id %}" class="btn btn-sm btn-info"><i class="bi bi-columns"></i> Столбцы</a>
+                        {% if not is_reg %}
+                            {% if is_arch %}
+                                {% for registration in dict.registrations.all %}
+                                    <a href="#" class="btn btn-sm btn-primary" role="button"><i class="bi bi-check2-circle"></i> Зарегистрировать</a>
+                                {% endfor %}
+                            {% else %}
+                                {% for registration in dict.registrations.all %}
+                                    {% if registration.is_approve == True %}
+                                        <a href="#" class="btn btn-sm btn-success" role="button" disabled><i class="bi bi-check2-circle"></i> Зарегистрирован</a>
+                                    {% else %}
+                                        <a href="#" class="btn btn-sm btn-primary" role="button" disabled><i class="bi bi-slash-circle"></i> Ожидает согласования</a>
+                                    {% endif %}
+                                {% empty %}
+                                    <a href="#" class="btn btn-sm btn-primary" role="button"><i class="bi bi-feather"></i> На согласование</a>
+                                {% endfor %}
+                            {% endif %}
+                        {% endif %}
                         <a href="{% url 'ma:object_delete' dict.id %}" class="btn btn-sm btn-danger" role="button"><i class="bi bi-trash"></i> Удалить</a>
                     </td>
                 </tr>
                 {% empty %}
-                    <p style="color: red;">Доступные справочники не обнаружены!</p>
+                    {% if is_reg %}
+                        <p style="color: red;">Зарегистрированные справочники не обнаружены!</p>
+                    {% else %}
+                        <p style="color: red;">Не зарегистрированные справочники не обнаружены!</p>
+                    {% endif %}
                 {% endfor %}
                 </tbody>
                 </table>

@@ -9,26 +9,22 @@ from ..forms import (
     MAObjectDeleteForm,
 )
 from django.urls import reverse_lazy
-from django.contrib import messages
+from .mixin import SaveCreatedByMixin, SaveUpdatedByMixin
 
 
 class ObjectBase:
     model = Object
 
 
-class MAObjectCreateView(ObjectBase, CreateView):
+class MAObjectCreateView(ObjectBase, SaveCreatedByMixin, CreateView):
     """Представления для добавления объекта."""
 
     template_name = "meta_app/object_add.html"
     form_class = MAObjectModifyModelForm
     success_url = reverse_lazy("ma:index")
 
-    def form_valid(self, form):
-        messages.success(self.request, "Объект успешно добавлен")
-        return super().form_valid(form)
 
-
-class MAObjectUpdateView(ObjectBase, UpdateView):
+class MAObjectUpdateView(ObjectBase, SaveUpdatedByMixin, UpdateView):
     """Представления для редактирвоания объекта."""
 
     template_name = "meta_app/object_edit.html"
