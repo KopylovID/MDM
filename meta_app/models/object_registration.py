@@ -18,6 +18,8 @@ class ObjectRegistration(BaseEntity):
 
     is_approve = models.BooleanField(
         verbose_name="Согласование",  # TODO: Локализация
+        null=True,
+        blank=True,
     )
 
     approve_by = models.ForeignKey(

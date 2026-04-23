@@ -1,7 +1,9 @@
 from django.views.generic import ListView
 from ..models import Object, ObjectRegistration
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import Prefetch, Q, F
+from django.db.models import Prefetch, Q
+from django.shortcuts import redirect, get_object_or_404
+from django.contrib import messages
 
 
 class MAUnRegObjectView(LoginRequiredMixin, ListView):
@@ -23,6 +25,7 @@ class MAUnRegObjectView(LoginRequiredMixin, ListView):
         context["is_user"] = user.groups.filter(name="Пользователь").exists()
 
         return context
+
 
     def get_queryset(self, **kwargs):
 
@@ -59,3 +62,19 @@ class MAUnRegObjectView(LoginRequiredMixin, ListView):
             )
 
             return queryset
+
+
+    def post(self, request, *args, **kwargs):
+        object_id = request.POST.get('dictionary_id')
+
+        try:
+            obj = get_object_or_404(Object, id=object_id)
+            obj_reg, created = ObjectRegistration.objects.get_or_create(
+                dictionary=obj,
+            )
+            if created:
+                messages.success(request, f'Справочник "{obj.dic_name}" отправлен на согласование')
+        except Exception as e:
+            messages.error(request, f'Ошибка: {str(e)}')
+
+        return redirect('ma:unreg_object')
