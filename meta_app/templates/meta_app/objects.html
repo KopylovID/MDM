@@ -25,44 +25,64 @@
                 <table class="table">
                 <thead>
                 <tr>
-                  <th scope="col">#</th>
+                  <th scope="col" class="col-1">Действия</th>
+                  <th scope="col" class="col-1">#</th>
                   <th scope="col">Наименование</th>
-                  <th scope="col">Действия</th>
+                  <th scope="col">Статус</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for dict in dict_list %}
                 {% with registration=dict.registrations %}
                 <tr>
-                    <th scope="row">{{ dict.dic_code }}</th>
-                    <td><a href="#">{{ dict.dic_code|truncatechars:5 }} - {{ dict.dic_name|truncatechars:30 }} ({{ dict.schema_name }}.{{ dict.object_name }})</a></td>
                     <td>
                         <div class="d-flex flex-nowrap gap-1">
-                            <a href="{% url 'ma:object_edit' dict.id %}" class="btn btn-sm btn-warning" role="button"><i class="bi bi-pencil"></i> Описание</a>
-                            <a href="{% url 'ma:object_column' dict.id %}" class="btn btn-sm btn-info"><i class="bi bi-columns"></i> Столбцы</a>
+                            <a href="{% url 'ma:object_edit' dict.id %}" class="btn btn-sm btn-warning" title="Описание" data-bs-toggle="tooltip"><i class="bi bi-pencil"></i></a>
+                            <a href="{% url 'ma:object_column' dict.id %}" class="btn btn-sm btn-info" title="Столбцы" data-bs-toggle="tooltip"><i class="bi bi-columns"></i></a>
                             {% if not is_reg %}
                                 {% if is_arch %}
                                     {% if registration %}
-                                        <a href="#" class="btn btn-sm btn-primary" role="button"><i class="bi bi-check2-circle"></i> Зарегистрировать</a>
+                                        <form method="post">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="dictionary_id" value="{{ dict.id }}">
+                                            <button type="submit" name="action" value="approve" class="btn btn-sm btn-primary" title="Зарегистрировать" data-bs-toggle="tooltip"><i class="bi bi-check2-circle"></i></button>
+                                        </form>
                                     {% endif %}
                                 {% else %}
                                     {% if registration %}
                                         {% if registration.is_approve == True %}
-                                            <a href="#" class="btn btn-sm btn-success" role="button" disabled><i class="bi bi-check2-circle"></i> Зарегистрирован</a>
+                                            <a href="#" class="btn btn-sm btn-success" disabled title="Зарегистрирован" data-bs-toggle="tooltip"><i class="bi bi-check2-circle"></i></a>
                                         {% else %}
-                                            <a href="#" class="btn btn-sm btn-secondary" role="button" disabled><i class="bi bi-slash-circle"></i> Ожидает согласования</a>
+                                            <form method="post">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="dictionary_id" value="{{ dict.id }}">
+                                                <button type="submit" name="action" value="revoke_approve" class="btn btn-sm btn-warning" title="Отозвать" data-bs-toggle="tooltip"><i class="bi bi-slash-circle"></i></button>
+                                            </form>
                                         {% endif %}
                                     {% else %}
-                                        <form method="post" action="{% url 'ma:unreg_object' %}">
+                                        <form method="post">
                                             {% csrf_token %}
                                             <input type="hidden" name="dictionary_id" value="{{ dict.id }}">
-                                            <button type="submit" class="btn btn-sm btn-primary" role="button"><i class="bi bi-feather"></i> На согласование</button>
+                                            <button type="submit" name="action" value="to_approve" class="btn btn-sm btn-primary" title="На согласование" data-bs-toggle="tooltip"><i class="bi bi-feather"></i></button>
                                         </form>
                                     {% endif %}
                                 {% endif %}
                             {% endif %}
-                            <a href="{% url 'ma:object_delete' dict.id %}" class="btn btn-sm btn-danger" role="button"><i class="bi bi-trash"></i> Удалить</a>
+                            <a href="{% url 'ma:object_delete' dict.id %}" class="btn btn-sm btn-danger" title="Удалить" data-bs-toggle="tooltip"><i class="bi bi-trash"></i></a>
                         </div>
+                    </td>
+                    <th scope="row">{{ dict.dic_code }}</th>
+                    <td><a href="#">{{ dict.dic_code|truncatechars:5 }} - {{ dict.dic_name|truncatechars:30 }} ({{ dict.schema_name }}.{{ dict.object_name }})</a></td>
+                    <td>
+                        {% if registration %}
+                            {% if registration.is_approve == True %}
+                                <p>Зарегистрирован</p>
+                            {% else %}
+                                <p>Ожидает согласования</p>
+                            {% endif %}
+                        {% else %}
+                            <p>Не зарегистрирован</p>
+                        {% endif %}
                     </td>
                 </tr>
                 {% endwith %}
