@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'user_app.apps.UserAppConfig',
     'meta_app.apps.MetaAppConfig',
+    'dynamic_tables_app.apps.DynamicTablesAppConfig',
     'widget_tweaks',
 ]
 

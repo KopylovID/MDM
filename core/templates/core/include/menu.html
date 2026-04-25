@@ -7,10 +7,9 @@
           <li class="nav-item">
             <a class="nav-link dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" href="#">Меню</a>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><a class="dropdown-item" href="{% url 'ma:unreg_object' %}">Список справочников в разработке</a></li>
-                <li><a class="dropdown-item" href="{% url 'ma:reg_object' %}">Список зарегистрированных справочников</a></li>
+                <li><a class="dropdown-item" href="{% url 'ma:reg_object' %}">Список справочников</a></li>
                 {% if is_arch %}
-                <li><a class="dropdown-item" href="#">Список справочников к согласованию</a></li>
+                <li><a class="dropdown-item" href="{% url 'ma:to_approve_object' %}">Список справочников к согласованию</a></li>
                 {% endif %}
             </ul>
           </li>

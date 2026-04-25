@@ -10,10 +10,9 @@ from .views import (
     MAObjectColumnCreateView,
     MAObjectColumnUpdateView,
     MAObjectColumnDeleteView,
-    # Unreg Objects
-    MAUnRegObjectView,
     # Reg Objects
     MARegObjectView,
+    MAToApproveObjectView
 )
 
 app_name = "ma"
@@ -31,8 +30,7 @@ urlpatterns = [
     path("object_column/<int:dictionary_id>/add/", MAObjectColumnCreateView.as_view(), name="object_column_add"),
     path("object_column/<int:dictionary_id>/edit/<int:pk>/", MAObjectColumnUpdateView.as_view(), name="object_column_edit"),
     path("object_column/<int:dictionary_id>/delete/<int:pk>", MAObjectColumnDeleteView.as_view(), name="object_column_delete"),
-    # Unreg Objects
-    path("unreg_object/", MAUnRegObjectView.as_view(), name="unreg_object"),
     # Reg Objects
     path("reg_object/", MARegObjectView.as_view(), name="reg_object"),
+    path("to_approve_object/", MAToApproveObjectView.as_view(), name="to_approve_object"),
 ]

@@ -24,4 +24,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('rdm/', include('meta_app.urls', namespace='ma')),
     path('auth/', include('user_app.urls', namespace='ua')),
+    path('dtbl/', include('dynamic_tables_app.urls', namespace='dta')),
 ]
