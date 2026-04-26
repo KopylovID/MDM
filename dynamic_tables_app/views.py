@@ -7,43 +7,6 @@ from .services import DynamicTableService
 def json_response(data, status=200):
     return JsonResponse(data, status=status, json_dumps_params={'ensure_ascii': False})
 
-@csrf_exempt
-@require_http_methods(["POST"])
-def create_table(request):
-    """Создание новой динамической таблицы"""
-    try:
-        data = json.loads(request.body)
-        schema = data.get('schema')
-        description = data.get('description', '')
-
-        if not schema:
-            return json_response({'error': 'Схема обязательна'}, 400)
-
-        if 'table_name' not in schema:
-            return json_response({'error': 'Имя таблицы должно присутствовать'}, 400)
-
-        # Проверяем, не существует ли уже такая таблица
-        existing = DynamicTableService.get_table(schema['table_name'])
-        if existing:
-            return json_response({'error': f"Таблица '{schema['table_name']}' уже существует"}, 400)
-
-        table = DynamicTableService.create_table(schema, description)
-
-        return json_response({
-            'success': True,
-            'table': {
-                'name': table.table_name,
-                'db_table': table.db_table,
-                'created_at': table.created_at.isoformat()
-            }
-        }, 201)
-
-    except json.JSONDecodeError:
-        return json_response({'error': 'Не корректный json'}, 400)
-    except Exception as e:
-        return json_response({'error': str(e)}, 500)
-
-
 @require_http_methods(["GET"])
 def list_tables(request):
     """Список всех динамических таблиц"""
@@ -67,18 +30,6 @@ def get_table_info(request, table_name):
         'created_at': table.created_at.isoformat(),
         'is_active': table.is_active
     })
-
-
-@require_http_methods(["DELETE"])
-def delete_table(request, table_name):
-    """Удаление динамической таблицы"""
-    drop_db = request.GET.get('drop_db', 'true').lower() == 'true'
-
-    if DynamicTableService.delete_table(table_name, drop_db):
-        return json_response({'success': True, 'message': f"Таблица '{table_name}' удалена"})
-
-    return json_response({'error': f"Таблица '{table_name}' не найдена"}, 404)
-
 
 @require_http_methods(["GET"])
 def get_records(request, table_name):

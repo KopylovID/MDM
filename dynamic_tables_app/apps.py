@@ -10,12 +10,8 @@ class DynamicTablesAppConfig(AppConfig):
 
     def ready(self):
         """При запуске приложения восстанавливаем все динамические модели"""
+
+        from django.core.signals import request_started
         from .models import DynamicTableSchema
 
-        # Пытаемся восстановить модели, если таблица схем уже существует
-        try:
-            restored = DynamicTableSchema.restore_all()
-            if restored:
-                logger.info(f"Восстановленные модели: {', '.join(restored)}")
-        except Exception as e:
-            logger.debug(f"Ошибка при восстановлении моделей: {e}")
+        request_started.connect(lambda sender, **kwargs: DynamicTableSchema.restore_all())

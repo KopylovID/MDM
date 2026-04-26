@@ -20,13 +20,36 @@ class DynamicModelManager:
         """
         self.schema = schema
         self.table_name = schema["table_name"]
+        self.db_table = f'"{schema["schema_name"]}"."{schema["table_name"]}"'
         self.app_label = schema.get("app_label", "dynamic_tables_app")
         self.model: Optional[type] = None
 
     def _get_django_field(self, field_def: Dict) -> models.Field:
         """Преобразует описание поля в Django Field"""
         field_def = field_def.copy()
-        field_type = field_def.pop("type")
+
+
+        field_type = field_def.get("type")
+
+        # Общие параметры
+        common_params = ['verbose_name', 'help_text', 'db_index', 'unique', 'default']
+
+        # Специфичные параметры для разных типов
+        specific_params = {
+            'CharField': ['max_length', 'min_length', 'choices'],
+            'TextField': ['max_length'],
+            'IntegerField': ['min_value', 'max_value'],
+            'DecimalField': ['max_digits', 'decimal_places', 'min_value', 'max_value'],
+            'BooleanField': [],
+            'DateTimeField': ['auto_now', 'auto_now_add'],
+            'DateField': ['auto_now', 'auto_now_add'],
+            'FloatField': ['min_value', 'max_value'],
+            'JSONField': ['encoder', 'decoder'],
+            'AutoField': ['primary_key']
+        }
+
+        # Все допустимые параметры
+        allowed_params = common_params + specific_params.get(field_type, [])
 
         field_mapping = {
             "CharField": models.CharField,
@@ -39,6 +62,7 @@ class DynamicModelManager:
             "DateField": models.DateField,
             "FloatField": models.FloatField,
             "JSONField": models.JSONField,
+            "AutoField": models.AutoField
         }
 
         field_class = field_mapping.get(field_type)
@@ -55,14 +79,35 @@ class DynamicModelManager:
             if "max_length" not in field_def and field_type != "TextField":
                 field_def["max_length"] = 255
 
-        return field_class(**field_def)
+        if field_type == "AutoField":
+            field_def["primary_key"] = True
+
+        # Фильтруем параметры
+        filtered_params = {}
+        for key, value in field_def.items():
+
+            # Пропускаем служебные параметры
+            if key in ['type', 'is_pk', 'is_null']:
+                continue
+
+            if key == 'is_null':
+                filtered_params['null'] = value
+
+            if key == 'is_pk':
+                filtered_params['primary_key'] = False if value is None else value
+
+            # Оставляем только допустимые параметры
+            elif key in allowed_params:
+                filtered_params[key] = value
+
+        return field_class(**filtered_params)
 
     def create_model(self) -> type:
         """Создает класс модели из описания"""
 
         class Meta:
             app_label = self.app_label
-            db_table = self.table_name
+            db_table = self.db_table
             managed = False  # Отключение автоматических миграций
 
         attrs = {
@@ -72,9 +117,8 @@ class DynamicModelManager:
 
         # Добавляем поля
         for field_def in self.schema["fields"]:
-            field_def_copy = field_def.copy()
-            field_name = field_def_copy.pop("name")
-            attrs[field_name] = self._get_django_field(field_def_copy)
+            field_name = field_def.get("name")
+            attrs[field_name] = self._get_django_field(field_def)
 
         # Добавляем ID если его нет
         if "id" not in attrs:

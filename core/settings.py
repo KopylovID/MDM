@@ -99,7 +99,7 @@ DATABASES = {
         'HOST': config.db.host,
         'PORT': config.db.port,
         'OPTIONS': {
-            'options': '-c search_path=user_app,meta_app'
+            'options': '-c search_path=user_app,meta_app,public'
         },
     }
 }

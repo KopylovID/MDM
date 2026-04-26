@@ -45,3 +45,6 @@ class Object(BaseEntity):
 
     def __str__(self):
         return f'{self.dic_code} - {self.dic_name}'
+
+    def get_object_name(self) -> str:
+        return f'{self.object_name}'

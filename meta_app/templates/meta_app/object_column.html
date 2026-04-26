@@ -6,6 +6,19 @@
         <div class="row text-center">
             <h4><a href="{% url 'ma:index' %}">{{ object_name }}</a></h4>
         </div>
+        <div class="row mt-1">
+            <div class="list-group">
+                {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                                {{ message }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
         <div class="row">
             <div class="col-1">
                 <div class="list-group">
@@ -21,6 +34,7 @@
                       <th scope="col" class="col-1">Действия</th>
                       <th scope="col" class="col-1">#</th>
                       <th scope="col">Наименование</th>
+                      <th scope="col">Описание</th>
                       <th scope="col">Тип</th>
                       <th scope="col">Обязательность</th>
                       <th scope="col">Первичный ключ</th>
@@ -35,6 +49,7 @@
                       </td>
                       <th scope="row"><a href="{% url 'ma:object_column_edit' dictionary_id=dictionary_id pk=col.id %}">{{ col.ordinal_position|floatformat:"0" }}</a></th>
                       <td>{{ col.column_name }}</td>
+                      <td>{{ col.column_description }}</td>
                       <td>{{ col.column_type }}</td>
                       <td>{% if col.is_null %}Да{% endif %}</td>
                       <td>{% if col.is_pk %}<i class="bi bi-circle-fill text-success"></i>{% endif %}</td>

@@ -11,11 +11,17 @@
                 </form>
             </div>
         </div>
-        <div class="row py-2">
-            <div class="col-1">
-                <div class="list-group">
-                    <a href="{% url 'ma:object_add' %}" class="list-group-item list-group-item-action list-group-item-success"><i class="bi bi-plus"></i> Добавить</a>
-                </div>
+        <div class="row mt-1">
+            <div class="list-group">
+                {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                                {{ message }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
             </div>
         </div>
         <div class="row py-2">
@@ -26,7 +32,7 @@
                   <th scope="col" class="col-1">Действия</th>
                   <th scope="col" class="col-1">#</th>
                   <th scope="col">Наименование</th>
-                  <th scope="col">Зарегистрирован</th>
+                  <th scope="col">Статус</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -41,9 +47,15 @@
                     <th scope="row">{{ dict.dic_code }}</th>
                     <td><a href="#">{{ dict.dic_code|truncatechars:5 }} - {{ dict.dic_name|truncatechars:30 }} ({{ dict.schema_name }}.{{ dict.object_name }})</a></td>
                     {% if registration %}
-                    <td scope="row">{% if registration.is_approve == True %}<i class="bi bi-circle-fill text-success"></i>{% endif %}</td>
+                    <td scope="row">
+                        {% if registration.is_approve == True %}
+                            <p style="color: green;">Зарегистрирован</p>
+                        {% else %}
+                            <p style="color: orange;">Ожидает согласования</p>
+                        {% endif %}
+                    </td>
                     {% else %}
-                    <td scope="row"></td>
+                    <td scope="row"><p>Не зарегистрирован</p></td>
                     {% endif %}
                 </tr>
                 {% endwith %}

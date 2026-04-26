@@ -15,9 +15,13 @@ class MAIndexView(LoginRequiredMixin, ListView):
     def get_head_data(self):
         return {"title": "Главная страница"}
 
+    def get_html_view_tag(self):
+        return "common"
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["head"] = self.get_head_data()
+        context["view_tag"] = self.get_html_view_tag()
 
         user = self.request.user
 

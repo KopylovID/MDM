@@ -11,6 +11,9 @@
                 {% if is_arch %}
                 <li><a class="dropdown-item" href="{% url 'ma:to_approve_object' %}">Список справочников к согласованию</a></li>
                 {% endif %}
+                {% if user.is_authenticated and user.is_superuser %}
+                <li><a class="dropdown-item" href="{% url 'admin:index' %}">Административная панель</a></li>
+                {% endif %}
             </ul>
           </li>
         </ul>

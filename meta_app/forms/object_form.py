@@ -43,6 +43,15 @@ class MAObjectModifyModelForm(forms.ModelForm):
             ),
         }
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields["schema_name"].initial = 'public'
+        self.fields["schema_name"].disabled = True
+
+        self.fields["object_type"].initial = 'TABLE'
+        self.fields["object_type"].disabled = True
+
 
 class MAObjectDeleteForm(forms.Form):
     """Форма для подтверждения удаления объекта"""

@@ -29,8 +29,7 @@ class ObjectColumn(BaseEntity):
         verbose_name="Тип колонки",  # TODO: Локализация
         to=AttrType,
         on_delete=models.CASCADE,
-        related_name="+",  # Отключаем обратное обращение
-        related_query_name="+",  # Отключаем фильтрацию
+        related_name="types",
         db_index=False,
     )
 

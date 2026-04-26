@@ -11,6 +11,19 @@
                 </form>
             </div>
         </div>
+        <div class="row mt-1">
+            <div class="list-group">
+                {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                                {{ message }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
         <div class="row py-2">
             <div class="col-1">
                 <div class="list-group">
@@ -38,29 +51,38 @@
                             <a href="{% url 'ma:object_edit' dict.id %}" class="btn btn-sm btn-warning" title="Описание" data-bs-toggle="tooltip"><i class="bi bi-pencil"></i></a>
                             <a href="{% url 'ma:object_column' dict.id %}" class="btn btn-sm btn-info" title="Столбцы" data-bs-toggle="tooltip"><i class="bi bi-columns"></i></a>
                             {% if registration %}
-                                {% if is_arch %}
-                                    <form method="post">
-                                        {% csrf_token %}
-                                        <input type="hidden" name="dictionary_id" value="{{ dict.id }}">
-                                        <button type="submit" name="action" value="approve" class="btn btn-sm btn-primary" title="Зарегистрировать" data-bs-toggle="tooltip"><i class="bi bi-check2-circle"></i></button>
-                                    </form>
-                                {% endif %}
                                 {% if registration.is_approve == True %}
                                     {% if is_arch %}
                                         <form method="post">
                                             {% csrf_token %}
+                                            {{ form.as_p }}
                                             <input type="hidden" name="dictionary_id" value="{{ dict.id }}">
                                             <button type="submit" name="action" value="revoke_approve" class="btn btn-sm btn-warning" title="Снять регигстрацию" data-bs-toggle="tooltip"><i class="bi bi-slash-circle"></i></button>
                                         </form>
                                     {% else %}
                                         <a href="#" class="btn btn-sm btn-success" disabled title="Зарегистрирован" data-bs-toggle="tooltip"><i class="bi bi-check2-circle"></i></a>
                                     {% endif %}
-                                {% else %}
+                                {% elif registration.is_approve == False %}
+                                    {% if is_arch %}
+                                        <form method="post">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="dictionary_id" value="{{ dict.id }}">
+                                            <button type="submit" name="action" value="approve" class="btn btn-sm btn-primary" title="Зарегистрировать" data-bs-toggle="tooltip"><i class="bi bi-check2-circle"></i></button>
+                                        </form>
+                                    {% endif %}
                                     <form method="post">
                                         {% csrf_token %}
                                         <input type="hidden" name="dictionary_id" value="{{ dict.id }}">
                                         <button type="submit" name="action" value="revoke_approve" class="btn btn-sm btn-warning" title="Отозвать" data-bs-toggle="tooltip"><i class="bi bi-slash-circle"></i></button>
                                     </form>
+                                {% else %}
+                                    {% if is_arch %}
+                                        <form method="post">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="dictionary_id" value="{{ dict.id }}">
+                                            <button type="submit" name="action" value="approve" class="btn btn-sm btn-primary" title="Зарегистрировать" data-bs-toggle="tooltip"><i class="bi bi-check2-circle"></i></button>
+                                        </form>
+                                    {% endif %}
                                 {% endif %}
                             {% else %}
                                 <form method="post">
@@ -88,10 +110,12 @@
                 </tr>
                 {% endwith %}
                 {% empty %}
-                    {% if is_reg %}
+                    {% if view_tag == 'reg_object' %}
                         <p style="color: red;">Зарегистрированные справочники не обнаружены!</p>
+                    {% elif view_tag == 'to_approve' %}
+                        <p style="color: red;">Cправочники к согласованию не обнаружены!</p>
                     {% else %}
-                        <p style="color: red;">Не зарегистрированные справочники не обнаружены!</p>
+                        <p style="color: red;">Cправочники не обнаружены!</p>
                     {% endif %}
                 {% endfor %}
                 </tbody>

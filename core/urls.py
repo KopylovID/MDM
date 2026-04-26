@@ -21,7 +21,7 @@ from django.views.generic import RedirectView
 
 urlpatterns = [
     path('', RedirectView.as_view(url='/rdm/')),
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls, name='admin'),
     path('rdm/', include('meta_app.urls', namespace='ma')),
     path('auth/', include('user_app.urls', namespace='ua')),
     path('dtbl/', include('dynamic_tables_app.urls', namespace='dta')),

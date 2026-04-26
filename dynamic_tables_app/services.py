@@ -6,7 +6,7 @@ class DynamicTableService:
     """Сервис для работы с динамическими таблицами"""
 
     @staticmethod
-    def create_table(schema: Dict[str, Any], description: str = "") -> DynamicTableSchema:
+    def create_table(schema: Dict[str, Any]) -> DynamicTableSchema:
         """
         Создает новую динамическую таблицу
 
@@ -19,7 +19,7 @@ class DynamicTableService:
             ]
         }
         """
-        return DynamicTableSchema.create_from_schema(schema, description)
+        return DynamicTableSchema.create_from_schema(schema)
 
     @staticmethod
     def get_table(table_name: str) -> Optional[DynamicTableSchema]:
@@ -48,11 +48,7 @@ class DynamicTableService:
     @staticmethod
     def list_tables() -> List[Dict]:
         """Список всех динамических таблиц"""
-        return list(
-            DynamicTableSchema.objects.filter(is_active=True).values(
-                "object_name", "created_at"
-            )
-        )
+        return list(DynamicTableSchema.objects.filter(is_active=True).values("object_name"))
 
     @staticmethod
     def get_data(table_name: str, filters: Dict = None, page: int = 1, page_size: int = 100):
