@@ -21,6 +21,12 @@ class AttrType(BaseEntity):
         null=True,
     )
 
+    tech_type_name = models.CharField(
+        verbose_name="Техническое название",  # TODO: Локализация
+        max_length=255,
+        null=True,
+    )
+
     type_params = models.JSONField(
         verbose_name="Параметры типа",  # TODO: Локализация
         null=True,
@@ -38,4 +44,5 @@ class AttrTypeDTO(BaseDTO):
     type_code: str
     type_name: str
     type_description: str
+    tech_type_name: str
     type_params: json = None
