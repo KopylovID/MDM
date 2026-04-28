@@ -86,15 +86,15 @@ class DynamicModelManager:
         filtered_params = {}
         for key, value in field_def.items():
 
-            # Пропускаем служебные параметры
-            if key in ['type', 'is_pk', 'is_null']:
-                continue
-
             if key == 'is_null':
-                filtered_params['null'] = value
+                filtered_params['null'] = not value
 
             if key == 'is_pk':
-                filtered_params['primary_key'] = False if value is None else value
+                filtered_params['unique'] = False if value is None else value
+
+            # Пропускаем служебные параметры
+            if key in ['type']:
+                continue
 
             # Оставляем только допустимые параметры
             elif key in allowed_params:
@@ -126,7 +126,7 @@ class DynamicModelManager:
 
         # Добавляем метод __str__
         def __str__(self):
-            first_field = self.schema["fields"][0]["name"] if self.schema["fields"] else "id"
+            first_field = "id"
             return str(getattr(self, first_field, self.id))
 
         attrs["__str__"] = __str__

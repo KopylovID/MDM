@@ -16,7 +16,7 @@ class MAObjectColumnModifyModelForm(forms.ModelForm):
         initial=False,
         required=False,
         widget=forms.CheckboxInput(),
-        label="Первичный ключ",
+        label="Уникальное",
     )
 
     class Meta:
@@ -49,6 +49,12 @@ class MAObjectColumnModifyModelForm(forms.ModelForm):
         if dictionary_id:
             self.fields["dictionary"].initial = dictionary_id
             self.fields["dictionary"].disabled = True
+
+    def clean_column_name(self):
+        """Валидация JSON данных"""
+        column_name = self.cleaned_data["column_name"]
+        if column_name == 'id':
+            raise forms.ValidationError(f"Запрещено добавлять поле с наименованием ID")
 
 
 class MAObjectColumnDeleteForm(forms.Form):

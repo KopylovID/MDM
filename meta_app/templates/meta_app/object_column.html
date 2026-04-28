@@ -19,6 +19,7 @@
                 {% endif %}
             </div>
         </div>
+        {% if not is_approve %}
         <div class="row">
             <div class="col-1">
                 <div class="list-group">
@@ -26,6 +27,7 @@
                 </div>
             </div>
         </div>
+        {% endif %}
         <div class="row py-2">
             <div class="col">
                     <table class="table">
@@ -37,15 +39,17 @@
                       <th scope="col">Описание</th>
                       <th scope="col">Тип</th>
                       <th scope="col">Обязательность</th>
-                      <th scope="col">Первичный ключ</th>
+                      <th scope="col">Уникальность</th>
                     </tr>
                     </thead>
                     <tbody>
                     {% for col in col_list %}
                     <tr>
                       <td>
+                          {% if not is_approve %}
                           <a href="{% url 'ma:object_column_edit' dictionary_id=dictionary_id pk=col.id %}" class="btn btn-sm btn-warning" title="Описание" data-bs-toggle="tooltip"><i class="bi bi-pencil"></i></a>
                           <a href="{% url 'ma:object_column_delete' dictionary_id=dictionary_id pk=col.id %}" class="btn btn-sm btn-danger" title="Удалить" data-bs-toggle="tooltip"><i class="bi bi-trash"></i></a>
+                          {% endif %}
                       </td>
                       <th scope="row"><a href="{% url 'ma:object_column_edit' dictionary_id=dictionary_id pk=col.id %}">{{ col.ordinal_position|floatformat:"0" }}</a></th>
                       <td>{{ col.column_name }}</td>

@@ -45,7 +45,11 @@
                         <a href="{% url 'ma:object_delete' dict.id %}" class="btn btn-sm btn-danger" title="Удалить" data-bs-toggle="tooltip"><i class="bi bi-trash"></i></a>
                     </td>
                     <th scope="row">{{ dict.dic_code }}</th>
-                    <td><a href="#">{{ dict.dic_code|truncatechars:5 }} - {{ dict.dic_name|truncatechars:30 }} ({{ dict.schema_name }}.{{ dict.object_name }})</a></td>
+                    {% if registration and registration.is_approve == True %}
+                    <td><a href="{% url 'dta:get_table_data' table_name=dict.object_name %}">{{ dict.dic_code|truncatechars:5 }} - {{ dict.dic_name|truncatechars:30 }} ({{ dict.schema_name }}.{{ dict.object_name }})</a></td>
+                    {% else %}
+                    <td><p>{{ dict.dic_code|truncatechars:5 }} - {{ dict.dic_name|truncatechars:30 }} ({{ dict.schema_name }}.{{ dict.object_name }})</p></td>
+                    {% endif %}
                     {% if registration %}
                     <td scope="row">
                         {% if registration.is_approve == True %}

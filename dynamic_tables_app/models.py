@@ -1,3 +1,5 @@
+import datetime
+
 from django.db import models
 from django.core.exceptions import ValidationError
 from core.mixin import IDMixin, CreatedAtMixin, UpdatedAtMixin
@@ -83,8 +85,15 @@ class DynamicTableSchema(IDMixin, CreatedAtMixin, UpdatedAtMixin, models.Model):
         """Создает запись о схеме и таблицу в БД"""
 
         # Создаем запись в БД
-        schema_record = cls.objects.create(
-            schema_name=schema["schema_name"], object_name=schema["table_name"], schema_json=schema
+        schema_record, created = cls.objects.update_or_create(
+            object_name = schema["table_name"],
+            defaults={
+                "schema_name": schema["schema_name"],
+                "object_name": schema["table_name"],
+                "schema_json": schema,
+                "is_active": True,
+                "updated_at": datetime.datetime.now()
+            }
         )
 
         # Создаем физическую таблицу

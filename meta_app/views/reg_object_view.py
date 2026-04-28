@@ -61,7 +61,7 @@ class MARegObjectView(MAIndexView):
         is_arch = request.user.groups.filter(name="Архитектор").exists()
         try:
             obj_reg = get_object_or_404(ObjectRegistration, dictionary_id=object_id)
-            if obj_reg.is_approve is None and obj_reg.is_approve != True:
+            if obj_reg.is_approve is None or obj_reg.is_approve != True:
                 obj_reg.delete()
                 messages.success(request, f'Справочник "{obj_reg.dictionary.dic_name}" отозван из согласования')
             elif is_arch:

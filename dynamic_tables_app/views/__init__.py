@@ -1,0 +1,6 @@
+from .dyn_model_list_view import DTADynModelListView
+from .dyn_model_record_view import DTADynModelRecordView
+from .dyn_model_record_create_view import DynamicRecordCreateView
+from .dyn_model_record_delete_view import DynamicRecordDeleteView
+from .dyn_model_record_update_view import DynamicRecordUpdateView
+from .views import (get_table_info)

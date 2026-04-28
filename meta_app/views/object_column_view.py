@@ -4,7 +4,7 @@ from django.views.generic import (
     UpdateView,
     DeleteView,
 )
-from ..models import ObjectColumn, Object
+from ..models import ObjectColumn, Object, ObjectRegistration
 from ..forms import (
     MAObjectColumnModifyModelForm,
     MAObjectColumnDeleteForm,
@@ -36,6 +36,8 @@ class MAObjectColumnListView(ObjectColumnBase, ListView):
         context["dictionary_id"] = self.kwargs.get("dictionary_id")
 
         dic_object = Object.objects.get(id=context["dictionary_id"])
+        reg = list(ObjectRegistration.objects.filter(dictionary_id=context["dictionary_id"]).values('is_approve'))
+        context["is_approve"] = reg[0].get('is_approve') if reg else False
         context["object_name"] = (
             f"{dic_object.dic_code} - {dic_object.dic_name} ({dic_object.schema_name}.{dic_object.object_name})"
         )

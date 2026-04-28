@@ -28,6 +28,7 @@ class Object(BaseEntity):
     object_name = models.CharField(
         verbose_name="Имя объекта  БД",  # TODO: Локализация
         max_length=255,
+        unique=True,
     )
 
     object_type = models.CharField(

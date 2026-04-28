@@ -51,7 +51,7 @@ class DynamicTableService:
         return list(DynamicTableSchema.objects.filter(is_active=True).values("object_name"))
 
     @staticmethod
-    def get_data(table_name: str, filters: Dict = None, page: int = 1, page_size: int = 100):
+    def get_data(table_name: str, filters: Dict = None):
         """Получает данные из динамической таблицы"""
         schema_record = DynamicTableService.get_table(table_name)
         if not schema_record:
@@ -63,17 +63,7 @@ class DynamicTableService:
         if filters:
             queryset = queryset.filter(**filters)
 
-        total = queryset.count()
-        offset = (page - 1) * page_size
-        items = list(queryset.values()[offset : offset + page_size])
-
-        return {
-            "items": items,
-            "total": total,
-            "page": page,
-            "page_size": page_size,
-            "total_pages": (total + page_size - 1) // page_size,
-        }
+        return queryset
 
     @staticmethod
     def create_record(table_name: str, data: Dict) -> Dict:

@@ -1,6 +1,6 @@
 AttrTypeData = [
     ('NULL', 'Null', 'Неопределенность', None),
-    ('AUTOINCREMENT', 'Autoincrement Integer', 'Автоинкремент', 'AutoField'),
+    # ('AUTOINCREMENT', 'Autoincrement Integer', 'Автоинкремент', 'AutoField'),
     ('INT', 'Integer', 'Целочисленный тип', 'IntegerField'),
     ('BIGINT', 'Big Integer', 'Целочисленный тип', 'BigIntegerField'),
     ('TEXT', 'Text', 'Текстовый тип данных', 'TextField'),

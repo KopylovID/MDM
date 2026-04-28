@@ -1,0 +1,77 @@
+{% extends 'core/base.html' %}
+
+{% block main %}
+{% if user.is_authenticated %}
+    <div class="container-fluid bg-body-tertiary py-1" data-bs-theme="light">
+        <div class="row text-center">
+            <h4><a href="{% url 'ma:index' %}">{{ table_name }}</a></h4>
+        </div>
+        <div class="row mt-1">
+            <div class="list-group">
+                {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                                {{ message }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-1">
+                <div class="list-group">
+                    <a href="{% url 'dta:insert_data' table_name=table_name %}" class="list-group-item list-group-item-action list-group-item-success"><i class="bi bi-plus"></i> Добавить</a>
+                </div>
+            </div>
+        </div>
+        <div class="row py-2">
+            <div class="col">
+                {% if dyn_model_record %}
+                    <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col" class="col-1">Действия</th>
+                        {% for field in fields %}
+                        <th scope="col">{{ field }}</th>
+                        {% endfor %}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for rec in dyn_model_record %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'dta:get_table_info' table_name=table_name %}" class="btn btn-sm btn-info" title="Описание" data-bs-toggle="tooltip"><i class="bi bi-columns"></i></a>
+                            <a href="{% url 'dta:update_data' table_name=table_name record_id=rec.id %}" class="btn btn-sm btn-warning" title="Редактировать" data-bs-toggle="tooltip"><i class="bi bi-pencil"></i></a>
+                            <form action="{% url 'dta:delete_data' table_name=table_name record_id=rec.id %}" method="post" style="display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-sm btn-danger" title="Удалить" data-bs-toggle="tooltip">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                        {% for key, value in rec.items %}
+                        <td scope="col">{{ value }}</td>
+                        {% endfor %}
+                    </tr>
+                    {% empty %}
+                        <p style="color: red;">Данные отсутствуют!</p>
+                    {% endfor %}
+                    </tbody>
+                    </table>
+                {% else %}
+                    <p style="color: red;">Данные отсутствуют!</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% else %}
+    <div class="alert alert-danger mt-3 " role="alert">
+        Вы не авторизованы! Для продолжения работы необходимо войти в систему!
+    </div>
+{% endif %}
+{% endblock main %}
+
+{% block footer %}
+{% endblock footer %}

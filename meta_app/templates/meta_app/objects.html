@@ -95,7 +95,7 @@
                         </div>
                     </td>
                     <th scope="row">{{ dict.dic_code }}</th>
-                    <td><a href="#">{{ dict.dic_code|truncatechars:5 }} - {{ dict.dic_name|truncatechars:30 }} ({{ dict.schema_name }}.{{ dict.object_name }})</a></td>
+                    <td><p>{{ dict.dic_code|truncatechars:5 }} - {{ dict.dic_name|truncatechars:30 }} ({{ dict.schema_name }}.{{ dict.object_name }})<p></td>
                     <td>
                         {% if registration %}
                             {% if registration.is_approve == True %}

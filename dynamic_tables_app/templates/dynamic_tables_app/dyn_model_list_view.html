@@ -1,0 +1,50 @@
+{% extends 'core/base.html' %}
+
+{% block main %}
+{% if user.is_authenticated %}
+    <div class="container-fluid bg-body-tertiary py-1" data-bs-theme="light">
+        <div class="row mt-1">
+            <div class="list-group">
+                {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                                {{ message }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
+        <div class="row py-2">
+            <div class="col">
+                <table class="table">
+                <thead>
+                <tr>
+                  <th scope="col" class="col-1">#</th>
+                  <th scope="col">Наименование таблицы</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for dyn_model in dyn_model_list %}
+                <tr>
+                    <td scope="col">{{ forloop.counter }}</td>
+                    <td scope="col"><a href="{% url 'dta:get_table_info' table_name=dyn_model.object_name %}">{{ dyn_model.object_name }}</a></td>
+                </tr>
+                {% empty %}
+                    <p style="color: red;">Доступные динамические модели не обнаружены!</p>
+                {% endfor %}
+                </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% else %}
+    <div class="alert alert-danger mt-3 " role="alert">
+        Вы не авторизованы! Для продолжения работы необходимо войти в систему!
+    </div>
+{% endif %}
+{% endblock main %}
+
+{% block footer %}
+{% endblock footer %}
