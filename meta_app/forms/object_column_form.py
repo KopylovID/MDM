@@ -12,7 +12,7 @@ class MAObjectColumnModifyModelForm(forms.ModelForm):
         label="Обязательное",
     )
 
-    is_pk = forms.BooleanField(
+    is_pk = forms.BooleanField( # TODO : Пока оставлю как уникальное - надо думать как прваильно сделать PK
         initial=False,
         required=False,
         widget=forms.CheckboxInput(),
@@ -51,10 +51,25 @@ class MAObjectColumnModifyModelForm(forms.ModelForm):
             self.fields["dictionary"].disabled = True
 
     def clean_column_name(self):
-        """Валидация JSON данных"""
-        column_name = self.cleaned_data["column_name"]
-        if column_name == 'id':
-            raise forms.ValidationError(f"Запрещено добавлять поле с наименованием ID")
+        column_name = self.cleaned_data["column_name"].strip().lower()
+
+        # Запрещаем системные имена
+        forbidden_names = ['id', 'pk', 'created_at', 'updated_at', 'created_by', 'updated_by']
+        if column_name in forbidden_names:
+            raise forms.ValidationError(
+                f"Запрещено добавлять поле с наименованием '{column_name}'. "
+                f"Это системное зарезервированное имя."
+            )
+
+        # Проверка на допустимые символы
+        import re
+        if not re.match(r'^[a-zA-Z_][a-zA-Z0-9_]*$', column_name):
+            raise forms.ValidationError(
+                "Имя колонки должно начинаться с буквы или подчеркивания и содержать только "
+                "буквы, цифры и подчеркивания."
+            )
+
+        return column_name
 
 
 class MAObjectColumnDeleteForm(forms.Form):

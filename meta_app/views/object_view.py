@@ -3,7 +3,7 @@ from django.views.generic import (
     UpdateView,
     DeleteView,
 )
-from ..models import Object
+from ..models import Object, ObjectRegistration
 from ..forms import (
     MAObjectModifyModelForm,
     MAObjectDeleteForm,
@@ -30,6 +30,17 @@ class MAObjectUpdateView(ObjectBase, SaveUpdatedByMixin, UpdateView):
     template_name = "meta_app/object_edit.html"
     form_class = MAObjectModifyModelForm
     success_url = reverse_lazy("ma:index")
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+
+        pk = kwargs.get('instance').pk
+        is_reg = ObjectRegistration.objects.filter(dictionary_id=pk).values('is_approve').first().get('is_approve', False)
+
+        kwargs['is_reg'] = is_reg
+
+        return kwargs
+
 
 
 class MAObjectDeleteView(ObjectBase, DeleteView):

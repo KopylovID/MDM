@@ -44,6 +44,7 @@ class MAObjectModifyModelForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
+        self.is_reg = kwargs.pop('is_reg', False)
         super().__init__(*args, **kwargs)
 
         self.fields["schema_name"].initial = 'public'
@@ -51,6 +52,14 @@ class MAObjectModifyModelForm(forms.ModelForm):
 
         self.fields["object_type"].initial = 'TABLE'
         self.fields["object_type"].disabled = True
+
+        if self.is_reg:
+            self.disable_form_fields()
+
+    def disable_form_fields(self):
+        """Отключает все поля формы"""
+        for field_name, field in self.fields.items():
+            field.disabled = True
 
 
 class MAObjectDeleteForm(forms.Form):
