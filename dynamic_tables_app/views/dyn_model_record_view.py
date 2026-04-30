@@ -12,11 +12,7 @@ class DTADynModelRecordView(LoginRequiredMixin, ListView):
         table_name = self.kwargs.get("table_name")
         queryset = DynamicTableService.get_data(table_name)
 
-        # Фильтрация по ролям
-        if self.request.user.groups.filter(name="Архитектор").exists():
-            return list(queryset.values())
-        else:
-            return list()  # Доступ запрещён
+        return list(queryset.values())
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

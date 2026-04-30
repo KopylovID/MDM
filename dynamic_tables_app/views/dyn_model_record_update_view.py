@@ -19,8 +19,8 @@ class DynamicRecordUpdateView(View):
         }
         return render(request, "dynamic_tables_app/dyn_model_record_modify.html", context=context)
 
-    def put(self, request, table_name, record_id):
-        form = DTARecordUpdateForm(request.PUT)
+    def post(self, request, table_name, record_id):
+        form = DTARecordUpdateForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data.get("data")
             count = DynamicTableService.update_record(table_name, record_id, data)
