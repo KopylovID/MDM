@@ -19,23 +19,5 @@ services:
       retries: 5         # количество попыток до признания unhealthy
       start_period: 10s  # время, которое нужно подождать перед первой проверкой
 
-  init:
-    build: .
-    command: python manage.py migrate && python manage.py seed_db
-    depends_on:
-      db:
-        condition: service_healthy
-
-  web:
-    build: .
-    command: python manage.py runserver 0.0.0.0:8000
-    ports:
-      - "8000:8000"
-    depends_on:
-      db:
-        condition: service_healthy
-      init:
-        condition: service_completed_successfully
-
 volumes:
   pg_data:
