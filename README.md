@@ -92,3 +92,9 @@ python manage.py makemigrations meta_app
 python manage.py migrate meta_app
 python manage.py makemigrations dynamic_tables_app
 python manage.py migrate dynamic_tables_app
+ python manage.py migrate django_celery_results
+
+## Проверка redis
+docker compose exec -it redis redis-cli
+
+В командной строке водим ping -> PONG

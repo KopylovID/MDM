@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'meta_app.apps.MetaAppConfig',
     'dynamic_tables_app.apps.DynamicTablesAppConfig',
     'widget_tweaks',
+    'django_celery_results',
 ]
 
 MIDDLEWARE = [
@@ -147,3 +148,6 @@ AUTH_USER_MODEL = 'user_app.User'
 LOGIN_REDIRECT_URL = '/'
 
 LOGIN_URL = reverse_lazy('ua:login')
+
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'

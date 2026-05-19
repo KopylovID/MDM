@@ -5,7 +5,9 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "celery[redis]>=5.6.3",
     "django>=5.0",
+    "django-celery-results>=2.6.0",
     "django-dto==0.1.4",
     "django-mptt>=0.18.0",
     "django-sequences>=3.0",

@@ -10,7 +10,15 @@ from ..forms import (
 )
 from django.urls import reverse_lazy
 from .mixin import SaveCreatedByMixin, SaveUpdatedByMixin
+import logging
+from meta_app.task import info_test
 
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+
+file_handler = logging.FileHandler('./temp/log.txt')
+file_handler.setLevel(logging.INFO)
+logger.addHandler(file_handler)
 
 class ObjectBase:
     model = Object
@@ -22,6 +30,14 @@ class MAObjectCreateView(ObjectBase, SaveCreatedByMixin, CreateView):
     template_name = "meta_app/object_add.html"
     form_class = MAObjectModifyModelForm
     success_url = reverse_lazy("ma:index")
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        self.object = form.save()
+
+        info_test.delay(message=f'Объект {form.cleaned_data['object_name']} создан')
+
+        return response
 
 
 class MAObjectUpdateView(ObjectBase, SaveUpdatedByMixin, UpdateView):
@@ -49,3 +65,11 @@ class MAObjectDeleteView(ObjectBase, DeleteView):
     template_name = "meta_app/object_delete.html"
     form_class = MAObjectDeleteForm
     success_url = reverse_lazy("ma:index")
+
+    def form_valid(self, form):
+        obj_name = str(self.object)
+        response = super().form_valid(form)
+
+        info_test.delay(message=f'Объект {obj_name} удален')
+
+        return response
